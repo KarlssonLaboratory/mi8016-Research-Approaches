@@ -35,7 +35,7 @@ For this we need to complete these steps:
 1. [Map CpG-sites](#1-map-cpg-sites)
 2. [Extract Ensembl dataset](#2-extract-ensembl-dataset)
 3. [Differentially methylated regions](#3-differentially-methylated-regions)
-4. [Overlap DMRs with genomics regions](#4-overlap-dmrs-with-genomics-regions) 
+4. [Overlap DMRs with genomics regions](#4-overlap-dmrs-with-genomics-regions)
 5. Calculate gene ontology enrichment scores w/ over-representation analysis.
 6. Generate a figure for the enriched gene ontology terms.
 
@@ -158,6 +158,14 @@ Rscript bin/methtable.R
 
 Will generate `data/PFOS_MCF10A_DMR.csv.gz`
 
+Additionally, a table from the gene perspective (each row is a gene), is useful from an explanatory approach.
+
+```sh
+Rscript bin/genetable.R
+```
+
+Will generate `data/PFOS_MCF10A_DMG.csv.gz`
+
 ---
 
 Make a table containing all the differentially methylated CpG-sites.
@@ -175,4 +183,4 @@ apptainer shell $METH_SIF
 
 ---
 
-
+## 5.
