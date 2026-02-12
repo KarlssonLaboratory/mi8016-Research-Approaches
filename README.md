@@ -34,8 +34,8 @@ For this we need to complete these steps:
 
 1. [Map CpG-sites](#1-map-cpg-sites)
 2. [Extract Ensembl dataset](#2-extract-ensembl-dataset)
-3. Calculate differentially methylated regions (CpG-sites).
-4. Overlap with genomics regions (promoter, exon, CpG-islands) to find differentially methylated genes.
+3. [Differentially methylated regions](#3-differentially-methylated-regions)
+4. [Overlap DMRs with genomics regions](#4-overlap-dmrs-with-genomics-regions) 
 5. Calculate gene ontology enrichment scores w/ over-representation analysis.
 6. Generate a figure for the enriched gene ontology terms.
 
@@ -86,7 +86,6 @@ The script requires the following R-packages: `BSgenome.Hsapiens.UCSC.hg38` and 
 
 Will generate `data/cpg_positions.txt.gz`.
 
-
 ## 2. Extract Ensembl dataset
 
 [Ensembl](https://ensembl.org/) is a public project providing access to reference genomes and gene annotations. We will be extracting all the known coding and non-coding genes gene positions.
@@ -97,9 +96,9 @@ Rscript bin/ensembl.R
 
 Will generate `data/ensembl_table.csv.gz`.
 
-## 3. Calculate differentially methylated regions
+## 3. Differentially methylated regions
 
-We will focus on the CpG-sites, but still call them regions.
+Calulate **D**ifferentially **M**ethylated **R**egions (DMRs) focusing on CpG-sites - but we still call them regions.
 
 This script is computationally heavy: requires 500Gb ram, 10 cpus and runs for 1,5h. Hence, it's best ran on a computer cluster, like [UPPMAX](https://www.uu.se/centrum/uppmax/resurser/kluster). 
 
@@ -109,8 +108,55 @@ Rscript bin/diffmeth.R
 
 Will generate `data/diffmeth.csv.gz`.
 
----
+## 4. Overlap DMRs with genomics regions
 
+Find out which genomic regions (promoter, exon, intron, intergenic, CpG-islands) overlap with the DMRs.
+
+> [!NOTE] We'll need two tables that hold the information for CpG-islands position and genome annotations, both of which can be downloaded from University of [California Santa Cruz (UCSC) Genomics Institute](https://genome-euro.ucsc.edu/index.html).
+
+<details>
+  <summary></summary><br>
+
+  Annotations can be exported from the [Table Browser tool](https://genome-euro.ucsc.edu/cgi-bin/hgTables) at UCSC database. To download the annotations set the parameters as follow:
+
+  + CpG-islands annotations, save as `cpgislands_GRCh38.bed`
+  
+  ```
+  clade = "Mammals" 
+  genome = "Human"
+  assembly = "Dec. 2013 (GRCh38/hg38)"
+  group = "Regulation"
+  track = "CpG-islands"
+  table = "cpgIslandExt"
+  output format = "BED"
+  output filename = "cpgislands_GRCh38.bed"
+  
+  <click> "get output" 
+  <click> "get BED"
+  ```
+  
+  + [Refseq](https://en.wikipedia.org/wiki/RefSeq) annotations, save as `refseq_UCSC_GRCh38.bed`
+  
+  ```
+  clade = "Mammals" 
+  genome = "Human"
+  assembly = "Dec. 2013 (GRCh38/hg38)"
+  group = "Genes and Gene Predictions"
+  track = "NCBI RefSeq"
+  table = "UCSC RefSeq (refGene)"
+  output format = "BED"
+  output filename = "refseq_UCSC_GRCh38.bed"
+  
+  <click> "get output" 
+  <click> "get BED"
+  ```
+</details>
+
+```sh
+Rscript bin/methtable.R
+```
+
+---
 
 Make a table containing all the differentially methylated CpG-sites.
 
