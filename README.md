@@ -201,6 +201,7 @@ Rscript bin/figure1.R
 
 <details>
   <summary>Figure 1</summary><br>
+  
   ![Figure 1](images/figure1.png)
 </details>
 
