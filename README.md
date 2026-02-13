@@ -79,6 +79,7 @@ The script requires the following R-packages: `BSgenome.Hsapiens.UCSC.hg38` and 
 
 Will generate `data/cpg_positions.txt.gz`.
 
+
 ## 2. Extract Ensembl dataset
 
 [Ensembl](https://ensembl.org/) is a public project providing access to reference genomes and gene annotations. We will be extracting all the known coding and non-coding genes gene positions.
@@ -88,6 +89,7 @@ Rscript bin/ensembl.R
 ```
 
 Will generate `data/ensembl_table.csv.gz`.
+
 
 ## 3. Differentially methylated regions
 
@@ -100,6 +102,7 @@ Rscript bin/diffmeth.R
 ```
 
 Will generate `data/diffmeth.csv.gz`.
+
 
 ## 4. Overlap DMRs with genomics regions
 
@@ -160,6 +163,7 @@ Rscript bin/genetable.R
 
 Will generate `data/PFOS_MCF-10A_DMG.Rds`
 
+
 ## 5. Calculate pathway enrichment scores
 
 Use the R-packages [`clusterProfiler`](https://bioconductor.org/packages//release/bioc/html/clusterProfiler.html) and [`org.Hs.eg.db`](https://www.bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html) to calculate pathway enrichment scores.
@@ -180,6 +184,7 @@ Rscript bin/gene_ontology.R
 
 Will generate `data/PFOS_MCF-10A_GO.Rds`
 
+
 ## 6. Generate figure 1
 
 Generate figure 1 from [PFOS MCF10A EMseq](https://doi.org/10.1016/j.scitotenv.2024.174864) paper. The figure is composed of five plots:
@@ -194,7 +199,11 @@ Generate figure 1 from [PFOS MCF10A EMseq](https://doi.org/10.1016/j.scitotenv.2
 Rscript bin/figure1.R
 ```
 
-![Figure 1](images/figure1.png)
+<details>
+  <summary>Figure 1</summary><br>
+  ![Figure 1](images/figure1.png)
+</details>
+
 
 ## 7. Generate figure 3
 

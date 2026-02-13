@@ -234,5 +234,6 @@ ggsave(
   filename = file.path("images", filename),
   plot = p,
   width = 9,
-  height = 9
+  height = 9,
+  bg = "white"
 )
