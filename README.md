@@ -185,7 +185,7 @@ Rscript bin/gene_ontology.R
 Will generate `data/PFOS_MCF-10A_GO.Rds`
 
 
-## 6. Generate figure 1
+## 6. Generate `figure 1`
 
 Generate figure 1 from [PFOS MCF10A EMseq](https://doi.org/10.1016/j.scitotenv.2024.174864) paper. The figure is composed of five plots:
 
@@ -206,7 +206,7 @@ Rscript bin/figure1.R
 </details>
 
 
-## 7. Generate figure 3
+## 7. Generate `figure 3`
 
 Generate figure 3 from [PFOS MCF10A EMseq](https://doi.org/10.1016/j.scitotenv.2024.174864) paper. The figure shows pathway enrichment results with GO terms matching the following keywords:
 

@@ -94,9 +94,7 @@ genes <- Reduce(function(x,y) rbind(x,y), l1)
 
 # = save results ============================================================= #
 
-#filename <- "PFOS_MCF10A_DMG.csv.gz"
 filename <- "PFOS_MCF-10A_DMG.Rds"
-#write_csv(genes, file = file.path("data", filename))
 saveRDS(genes, file = file.path("data", filename))
 
 cat(paste(
