@@ -11,12 +11,12 @@ This repo holds the code needed for **Methylome Analysis** lecture in the [_Rese
 
 ---
 
-# Computational analysis
+# 🗄️ Computational analysis
 
-## Alignment & coverage
+## 🧬 Alignment & coverage
 
 > [!NOTE]
-> This process is beyond the scope of this lecture. In short, the [nfcore/methylseq:1.6.1](https://nf-co.re/methylseq/1.6.1) was used to align the reads to the reference genome and generate the coverage (`*.cov.gz`).
+> This process is beyond the scope of this lecture. In short, the [nfcore/methylseq:1.6.1](https://nf-co.re/methylseq/1.6.1) was used to align the reads to the reference genome and generate the coverage files (`*.cov.gz`).
 
 ## Differential methylation analysis
 
