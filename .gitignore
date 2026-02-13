@@ -1,5 +1,6 @@
 *.log
 *.slurm
 /results/
+/images/
 /data/
 

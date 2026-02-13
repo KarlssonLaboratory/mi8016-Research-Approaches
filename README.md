@@ -11,7 +11,7 @@ This repo holds the code needed for **Methylome Analysis** lecture in the [_Rese
 
 ---
 
-# 🗄️ Computational analysis
+# 🖥️ Computational analysis
 
 ## 🧬 Alignment & coverage
 
@@ -29,7 +29,8 @@ For this we need to complete the follow steps:
 3. [Differentially methylated regions](#3-differentially-methylated-regions)
 4. [Overlap DMRs with genomics regions](#4-overlap-dmrs-with-genomics-regions)
 5. [Calculate pathway enrichment scores](#5-calculate-pathway-enrichment-score)
-6. Generate a figure for the enriched gene ontology terms.
+6. [Generate figure 1](#6-generate-figure-1)
+7. [Generate figure 3](#7-generate-figure-3)
 
 ## 1. Map CpG-sites
 
@@ -179,4 +180,22 @@ Rscript bin/gene_ontology.R
 
 Will generate `data/PFOS_MCF-10A_GO.Rds`
 
----
+## 6. Generate figure 1
+
+Generate figure 1 from [PFOS MCF10A EMseq](https://doi.org/10.1016/j.scitotenv.2024.174864) paper. The figure is composed of five plots:
+
+1. Methylation status of DMRs
+2. Genomic regions of DMRs
+3. DM CpG-islands
+4. Genes overlapping DMRs
+5. Gene types of DMRs overlapping with promoter, exon and/or CGI
+
+```sh
+Rscript bin/figure1.R
+```
+
+## 7. Generate figure 3
+
+```sh
+Rscript bin/figure3.R
+```
