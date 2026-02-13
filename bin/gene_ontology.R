@@ -119,7 +119,7 @@ go_analysis <- function(genelist, genes){
 
 res <- lapply(geneset, function(genelist) go_analysis(genelist, genes))
 
-filename <- "PFOS_MCF10A_GO.Rds"
+filename <- "PFOS_MCF-10A_GO.Rds"
 saveRDS(res, file = file.path("data", "PFOS_MCF-10A_GO.Rds"))
 
 cat(paste(

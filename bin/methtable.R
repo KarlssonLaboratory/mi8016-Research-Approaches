@@ -91,8 +91,10 @@ meth$region[rows$subjectHits] <- "promoter"
 # FIX, if no gene id set to intergenic (between genes)
 meth$region <- ifelse(is.na(meth$gene_id), "intergenic", meth$region)
 
-filename <- paste0("PFOS_MCF10A_DMR.csv.gz")
-write_csv(meth, file = file.path("data", filename))
+#filename <- "PFOS_MCF10A_DMR.csv.gz"
+filename <- "PFOS_MCF-10A_DMR.Rds"
+#write_csv(meth, file = file.path("data", filename))
+saveRDS(meth, file = file.path("data", filename))
 
 cat(paste(
   "\n~~ ensembl.R complete ~~~~~~~~~~~~~~~~~~~~~~~~~~",

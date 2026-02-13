@@ -15,7 +15,8 @@ This repo holds the code needed for **Methylome Analysis** lecture in the [_Rese
 
 ## Alignment & coverage
 
-This process is beyond the scope of this lecture. In short, the [nfcore/methylseq:1.6.1](https://nf-co.re/methylseq/1.6.1) was used to align the reads to the reference genome and generate the coverage (`*.cov.gz`).
+> [!NOTE]
+> This process is beyond the scope of this lecture. In short, the [nfcore/methylseq:1.6.1](https://nf-co.re/methylseq/1.6.1) was used to align the reads to the reference genome and generate the coverage (`*.cov.gz`).
 
 ## Differential methylation analysis
 
@@ -148,7 +149,7 @@ Find out which genomic regions (promoter, exon, intron, intergenic, CpG-islands)
 Rscript bin/methtable.R
 ```
 
-Will generate `data/PFOS_MCF10A_DMR.csv.gz`
+Will generate `data/PFOS_MCF-10A_DMR.Rds`
 
 Additionally, a table from the gene perspective (each row is a gene), is useful from an explanatory approach.
 
@@ -156,7 +157,7 @@ Additionally, a table from the gene perspective (each row is a gene), is useful 
 Rscript bin/genetable.R
 ```
 
-Will generate `data/PFOS_MCF10A_DMG.csv.gz`
+Will generate `data/PFOS_MCF-10A_DMG.Rds`
 
 ## 5. Calculate pathway enrichment scores
 
@@ -176,6 +177,6 @@ problem
 Rscript bin/gene_ontology.R
 ```
 
-Will generate `data/PFOS_MCF10A_GO.Rds`
+Will generate `data/PFOS_MCF-10A_GO.Rds`
 
 ---
