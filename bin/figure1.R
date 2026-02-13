@@ -36,15 +36,16 @@ seqlevels(cpg_islands, pruning.mode = "coarse") <- seqlevels(cpg_islands)[seqlev
 
 ### Methylation status of DMRs ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-data <- meth %>%
-  group_by(type) %>%
-  summarise(N = n()) %>% 
-  mutate(percent = round(N / sum(N) * 100, 1),
-         type = str_to_title(type),
-         type = fct_inorder(type),
-         csum = rev(cumsum(rev(N))),
-         pos = N / 2 + lead(csum, 1), 
-         pos = if_else(is.na(pos), N / 2, pos))
+data <- meth |>
+  group_by(type) |>
+  summarise(N = n()) |>
+  mutate(
+    percent = round(N / sum(N) * 100, 1),
+    type = str_to_title(type),
+    type = fct_inorder(type),
+    csum = rev(cumsum(rev(N))),
+    pos = N / 2 + lead(csum, 1), 
+    pos = if_else(is.na(pos), N / 2, pos))
 
 col <- brewer.pal(4, "Set2")[c(4, 3)]
 meth_status <- ggplot(data, aes(x = "", y = N, fill = type)) +
@@ -52,16 +53,19 @@ meth_status <- ggplot(data, aes(x = "", y = N, fill = type)) +
   coord_polar(theta = "y", direction = -1) +
   labs(fill = "", title = "Methylation status (DMRs)") +
   theme_void() +
-  theme(legend.text = element_text(size = 11),
-        plot.title = element_text(hjust = 0.5),
-        legend.position = "bottom") +
+  theme(
+    legend.text = element_text(size = 11),
+    plot.title = element_text(hjust = 0.5),
+    legend.position = "bottom") +
   scale_fill_manual(values = col) +
-  geom_label_repel(aes(y = pos, label = paste0(comma(N), " (", percent, "%)")), 
-                   size = 4,
-                   show.legend = F,
-                   nudge_x = .5,
-                   min.segment.length = 0,
-                   seed = 1337) +
+  geom_label_repel(aes(
+    y = pos,
+    label = paste0(comma(N), " (", percent, "%)")),
+    size = 4,
+    show.legend = F,
+    nudge_x = .5,
+    min.segment.length = 0,
+    seed = 1337) +
   guides(fill = guide_legend(ncol = 1, keywidth = 1, keyheight = 1))
 
 
@@ -143,7 +147,7 @@ CGIs <- ggplot(data, aes(x = "", y = N, fill = type)) +
 gene_ids <- subset(meth, region %in% c("promoter", "exon") | !is.na(cgi_id) & !is.na(gene_id))$gene_id
 gene_ids <- sapply(gene_ids, function(x) {
   strsplit(x, "[,]")[[1]]
-}) %>% unlist %>% unname %>% unique
+}) |> unlist() |> unname() |> unique()
 
 col <- brewer.pal(3, "Set2")[c(1,3)]
 
@@ -228,12 +232,12 @@ p <- plot_grid(
 
 filename <- "figure1.png"
 
-if (!exists("images")) dir.create("images")
-
 ggsave(
-  filename = file.path("images", filename),
+  filename = filename,
+  path = "images",
   plot = p,
   width = 9,
   height = 9,
-  bg = "white"
+  bg = "white",
+  create.dir = TRUE
 )
