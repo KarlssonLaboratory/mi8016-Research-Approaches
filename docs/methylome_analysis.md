@@ -202,7 +202,7 @@ Rscript bin/figure1.R
 <details>
   <summary>Figure 1</summary><br>
   
-  ![Figure 1](images/figure1.png)
+  ![Figure 1](images/emseq_pfos_figure1.png)
 </details>
 
 
@@ -231,5 +231,5 @@ Rscript bin/figure3.R
 <details>
   <summary>Figure 3</summary><br>
 
-  ![Figure 3](images/figure3.png)
+  ![Figure 3](images/emseq_pfos_figure3.png)
 </details>
