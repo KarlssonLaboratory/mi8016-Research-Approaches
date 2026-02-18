@@ -177,16 +177,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="research-trends-in-toxicology" class="level1">
 <h1>Research Trends in Toxicology</h1>
 <p>This repo holds the code needed for <strong>Methylome Analysis</strong> lecture in the <a href="https://www.su.se/english/education/course-catalogue/mi/mi8016"><em>Research Trends in Toxicology course</em></a>. The lecture generates figure 1 and 3 from the <a href="https://doi.org/10.1016/j.scitotenv.2024.174864">PFOS MCF10A EMseq</a> paper.</p>
-</section>
-<section id="agenda" class="level1">
-<h1>Agenda</h1>
-<ul>
-<li>Reproduce figure 1 and 3 from the <a href="https://doi.org/10.1016/j.scitotenv.2024.174864">PFOS EM-seq paper</a>.</li>
-<li>Share code for the process coverage files =&gt; DMR table (csv)</li>
-<li>Make slide showing the workflow of the methylome analysis</li>
-<li>Write stand along code to reproduce the figures</li>
-</ul>
+<section id="file-structure" class="level2">
+<h2 class="anchored" data-anchor-id="file-structure">File structure</h2>
+<pre><code>project/
+├── bin/
+│   ├── cpg_positions.R
+│   ├── diffmeth.R
+│   ├── ensembl.R
+│   ├── figure1.R
+│   ├── figure3.R
+│   ├── gene_ontology.R
+│   ├── genetable.R
+│   └── methtable.R
+└── data/
+    ├── PFOS_MCF-10A_DMG.Rds
+    ├── PFOS_MCF-10A_DMR.Rds
+    ├── PFOS_MCF-10A_GO.Rds
+    ├── cpgislands_GRCh38.bed
+    └── refseq_UCSC_GRCh38.bed</code></pre>
 <hr>
+</section>
 </section>
 <section id="computational-analysis" class="level1">
 <h1>🖥️ Computational analysis</h1>
@@ -223,7 +233,7 @@ Note
 <section id="map-cpg-sites" class="level2">
 <h2 class="anchored" data-anchor-id="map-cpg-sites">1. Map CpG-sites</h2>
 <p>Extract the exact positions of <code>CG</code>-motifs in the human genome, save as text file <code>data/cpg_positions.txt.gz</code>. This table will be used to filter out only the CpG-sites for downstream analysis. To generate the file run this in the terminal (or run the script inside Positron / Rstudio):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/cpg_positions.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/cpg_positions.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The script requires the following R-packages: <code>BSgenome.Hsapiens.UCSC.hg38</code> and <code>readr</code>.</p>
 <details>
 <summary>
@@ -234,14 +244,14 @@ How to install R-packages
 <p>Assuming you have R already installed</p>
 </blockquote>
 <p>Basic R-packages are installed from <a href="https://cran.r-project.org/">CRAN</a> (<code>install.packages()</code>) while bioinformatic R-packages are installed from <a href="https://bioconductor.org/">Bioconductor</a> (<code>BiocManager::install()</code>). In order, to install from Bioconductor we need first to install the <a href="https://bioconductor.org/install/">Bioconductor Manager</a>, see code below:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Install Bioconductor manager</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Install from CRAN</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"readr"</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Install from Bioconductor</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"BSgenome.Hsapiens.UCSC.hg38"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Install Bioconductor manager</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Install from CRAN</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"readr"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Install from Bioconductor</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"BSgenome.Hsapiens.UCSC.hg38"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 Install packages like this will download the latest version. Exact version numbers are important for reproducibility.
 </details>
 <details>
@@ -250,25 +260,25 @@ Run code with containers
 </summary>
 <p><br></p>
 <p>Use a singularity container with a pre-install environment (OS, R, packages). Run with apptainer / singularity</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Save container as a variable</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="va">METH_SIF</span><span class="op">=</span><span class="st">'library://andreyhgl/singularity-r/methylome'</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Run the container</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">apptainer</span> exec <span class="va">$METH_SIF</span> Rscript bin/cpg_positions.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Save container as a variable</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="va">METH_SIF</span><span class="op">=</span><span class="st">'library://andreyhgl/singularity-r/methylome'</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Run the container</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">apptainer</span> exec <span class="va">$METH_SIF</span> Rscript bin/cpg_positions.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <p>Will generate <code>data/cpg_positions.txt.gz</code>.</p>
 </section>
 <section id="extract-ensembl-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="extract-ensembl-dataset">2. Extract Ensembl dataset</h2>
 <p><a href="https://ensembl.org/">Ensembl</a> is a public project providing access to reference genomes and gene annotations. We will be extracting all the known coding and non-coding genes gene positions.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/ensembl.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/ensembl.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Will generate <code>data/ensembl_table.csv.gz</code>.</p>
 </section>
 <section id="differentially-methylated-regions" class="level2">
 <h2 class="anchored" data-anchor-id="differentially-methylated-regions">3. Differentially methylated regions</h2>
 <p>Calulate <strong>D</strong>ifferentially <strong>M</strong>ethylated <strong>R</strong>egions (DMRs) focusing on CpG-sites - but we still call them regions.</p>
 <p>This script is computationally heavy: requires 500Gb ram, 10 cpus and runs for 1,5h. Hence, it’s best ran on a computer cluster, like <a href="https://www.uu.se/centrum/uppmax/resurser/kluster">UPPMAX</a>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/diffmeth.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/diffmeth.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Will generate <code>data/diffmeth.csv.gz</code>.</p>
 </section>
 <section id="overlap-dmrs-with-genomics-regions" class="level2">
@@ -322,10 +332,10 @@ output filename = "refseq_UCSC_GRCh38.bed"
 &lt;click&gt; "get BED"</code></pre></li>
 </ul>
 </details>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/methtable.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/methtable.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Will generate <code>data/PFOS_MCF-10A_DMR.Rds</code></p>
 <p>Additionally, a table from the gene perspective (each row is a gene), is useful from an explanatory approach.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/genetable.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/genetable.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Will generate <code>data/PFOS_MCF-10A_DMG.Rds</code></p>
 </section>
 <section id="calculate-pathway-enrichment-scores" class="level2">
@@ -340,7 +350,7 @@ I could not run the script inside the container, perhaps org.Hs.eg.db is the
 problem
 
 -->
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/gene_ontology.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/gene_ontology.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Will generate <code>data/PFOS_MCF-10A_GO.Rds</code></p>
 </section>
 <section id="generate-figure-1" class="level2">
@@ -353,7 +363,7 @@ problem
 <li>Genes overlapping DMRs</li>
 <li>Gene types of DMRs overlapping with promoter, exon and/or CGI</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/figure1.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/figure1.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <details>
 <summary>
 Figure 1
@@ -384,7 +394,7 @@ Figure 1
 <li>locomotion</li>
 </ul>
 <p>These keywords are matched against the gene description and are relevant genes for PFOS induced phenotypes (previously demonstrated <a href="https://doi.org/10.1007/s00204-017-2077-8">Pierozan and Karlsson, 2018</a>).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/figure3.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/figure3.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <details>
 <summary>
 Figure 3

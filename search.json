@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "docs/anova.html",
+    "href": "docs/anova.html",
+    "title": "Research Approaches II: Data Analysis (mi8016)",
+    "section": "",
+    "text": "ANOVA and Tukey Kramer posthoc test https://scibrief.blog/tukey-kramer-r"
+  },
+  {
     "objectID": "docs/t_test.html",
     "href": "docs/t_test.html",
     "title": "Research Approaches II: Data Analysis (mi8016)",
@@ -18,7 +25,14 @@
     "href": "docs/methylome_analysis.html",
     "title": "Research Trends in Toxicology",
     "section": "",
-    "text": "This repo holds the code needed for Methylome Analysis lecture in the Research Trends in Toxicology course. The lecture generates figure 1 and 3 from the PFOS MCF10A EMseq paper."
+    "text": "This repo holds the code needed for Methylome Analysis lecture in the Research Trends in Toxicology course. The lecture generates figure 1 and 3 from the PFOS MCF10A EMseq paper.\n\n\nproject/\n├── bin/\n│   ├── cpg_positions.R\n│   ├── diffmeth.R\n│   ├── ensembl.R\n│   ├── figure1.R\n│   ├── figure3.R\n│   ├── gene_ontology.R\n│   ├── genetable.R\n│   └── methtable.R\n└── data/\n    ├── PFOS_MCF-10A_DMG.Rds\n    ├── PFOS_MCF-10A_DMR.Rds\n    ├── PFOS_MCF-10A_GO.Rds\n    ├── cpgislands_GRCh38.bed\n    └── refseq_UCSC_GRCh38.bed"
+  },
+  {
+    "objectID": "docs/methylome_analysis.html#file-structure",
+    "href": "docs/methylome_analysis.html#file-structure",
+    "title": "Research Trends in Toxicology",
+    "section": "",
+    "text": "project/\n├── bin/\n│   ├── cpg_positions.R\n│   ├── diffmeth.R\n│   ├── ensembl.R\n│   ├── figure1.R\n│   ├── figure3.R\n│   ├── gene_ontology.R\n│   ├── genetable.R\n│   └── methtable.R\n└── data/\n    ├── PFOS_MCF-10A_DMG.Rds\n    ├── PFOS_MCF-10A_DMR.Rds\n    ├── PFOS_MCF-10A_GO.Rds\n    ├── cpgislands_GRCh38.bed\n    └── refseq_UCSC_GRCh38.bed"
   },
   {
     "objectID": "docs/methylome_analysis.html#alignment-coverage",
