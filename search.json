@@ -1,38 +1,31 @@
 [
   {
-    "objectID": "docs/R_installation_tutorial.html",
-    "href": "docs/R_installation_tutorial.html",
-    "title": "The R Project for Statistical Computing",
+    "objectID": "docs/t_test.html",
+    "href": "docs/t_test.html",
+    "title": "Methylome Analysis (mi8016)",
     "section": "",
-    "text": "R is a free software environment for statistical computing and graphics (free as in freedom!).\nIt runs on a wide variety of UNIX-like platforms (e.g. Linux, MacOS) and Windows.\n\n\nYou can download R via the The Comprehensive R Archive Network (CRAN). CRAN is a network of ftp and web servers around the world that store identical, up-to-date, versions of code and documentation for R.\nYou should download and install the R version according to your operating system:\nR for Windows\nR for macOS\nR for Linux\n\n\n\nR is an integrated suite of software facilities for data manipulation, calculation and graphical display. It includes:\n\nAn effective data handling and storage facility\nA suite of operators for calculations on arrays, in particular matrices\nA large, coherent, integrated collection of intermediate tools for data analysis\nGraphical facilities for data analysis and display either on-screen or on hardcopy\nA well-developed, simple and effective programming language which includes conditionals, loops, user-defined recursive functions, and input and output facilities\n\nThe term “environment” is intended to characterize it as a fully planned and coherent system, rather than an incremental accretion of very specific and inflexible tools, as is frequently the case with other data analysis software.\n\n\n\n\n\n\nIf you are familiar with Linux, after installing you can open R directly from the command line interface by typing R and running the command with ENTER:\n$ R\n\nR version 4.5.2 (2025-10-31) -- \"[Not] Part in a Rumble\"\nCopyright (C) 2025 The R Foundation for Statistical Computing\nPlatform: x86_64-redhat-linux-gnu\n\nR is free software and comes with ABSOLUTELY NO WARRANTY.\nYou are welcome to redistribute it under certain conditions.\nType 'license()' or 'licence()' for distribution details.\n\n  Natural language support but running in an English locale\n\nR is a collaborative project with many contributors.\nType 'contributors()' for more information and\n'citation()' on how to cite R or R packages in publications.\n\nType 'demo()' for some demos, 'help()' for on-line help, or\n'help.start()' for an HTML browser interface to help.\nType 'q()' to quit R.\n\n&gt;\nAfter the &gt; is where you type the a specific R command, for example, a simple math problem 2+2, and then press ENTER which will print you the output 4, after the line number of the print output [1]:\n&gt; 2+2\n[1] 4\nYou can also store those values in an object that you can name anything you want, in this case, a, b, and c:\na &lt;- 2+2\n\nb &lt;- 5*2\n\nc &lt;- 12/3\n&gt; a\n[1] 4\n&gt; b\n[1] 10\n&gt; c\n[1] 4\n&gt; a+b+c\n[1] 18\n&gt; a-b\n[1] -6\nYou can also save the sequence of commands in a script, basically a text file that is saved with the .R extension, and run it in bash using:\nRscript sum_example.R\n\n\n\nThe base R come with a standard version of a Graphical User Interface (GUI), found at the instalation folder /bin/Rgui.exe\n\n\n\nR GUI Console\n\n\nHowever, this interface is very simple, and not ideal for editing scripts. For that, integrated development environment (IDE) can be used, which offer sets of tools built to help you be more productive."
+    "text": "https://doi.org/10.1007/s00204-017-2077-8 figure 3 A and B"
   },
   {
-    "objectID": "docs/R_installation_tutorial.html#getting-started",
-    "href": "docs/R_installation_tutorial.html#getting-started",
-    "title": "The R Project for Statistical Computing",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Methylome Analysis (mi8016)",
     "section": "",
-    "text": "R is a free software environment for statistical computing and graphics (free as in freedom!).\nIt runs on a wide variety of UNIX-like platforms (e.g. Linux, MacOS) and Windows.\n\n\nYou can download R via the The Comprehensive R Archive Network (CRAN). CRAN is a network of ftp and web servers around the world that store identical, up-to-date, versions of code and documentation for R.\nYou should download and install the R version according to your operating system:\nR for Windows\nR for macOS\nR for Linux\n\n\n\nR is an integrated suite of software facilities for data manipulation, calculation and graphical display. It includes:\n\nAn effective data handling and storage facility\nA suite of operators for calculations on arrays, in particular matrices\nA large, coherent, integrated collection of intermediate tools for data analysis\nGraphical facilities for data analysis and display either on-screen or on hardcopy\nA well-developed, simple and effective programming language which includes conditionals, loops, user-defined recursive functions, and input and output facilities\n\nThe term “environment” is intended to characterize it as a fully planned and coherent system, rather than an incremental accretion of very specific and inflexible tools, as is frequently the case with other data analysis software."
+    "text": "Welcome to my site!"
   },
   {
-    "objectID": "docs/R_installation_tutorial.html#how-to-use-r",
-    "href": "docs/R_installation_tutorial.html#how-to-use-r",
-    "title": "The R Project for Statistical Computing",
-    "section": "",
-    "text": "If you are familiar with Linux, after installing you can open R directly from the command line interface by typing R and running the command with ENTER:\n$ R\n\nR version 4.5.2 (2025-10-31) -- \"[Not] Part in a Rumble\"\nCopyright (C) 2025 The R Foundation for Statistical Computing\nPlatform: x86_64-redhat-linux-gnu\n\nR is free software and comes with ABSOLUTELY NO WARRANTY.\nYou are welcome to redistribute it under certain conditions.\nType 'license()' or 'licence()' for distribution details.\n\n  Natural language support but running in an English locale\n\nR is a collaborative project with many contributors.\nType 'contributors()' for more information and\n'citation()' on how to cite R or R packages in publications.\n\nType 'demo()' for some demos, 'help()' for on-line help, or\n'help.start()' for an HTML browser interface to help.\nType 'q()' to quit R.\n\n&gt;\nAfter the &gt; is where you type the a specific R command, for example, a simple math problem 2+2, and then press ENTER which will print you the output 4, after the line number of the print output [1]:\n&gt; 2+2\n[1] 4\nYou can also store those values in an object that you can name anything you want, in this case, a, b, and c:\na &lt;- 2+2\n\nb &lt;- 5*2\n\nc &lt;- 12/3\n&gt; a\n[1] 4\n&gt; b\n[1] 10\n&gt; c\n[1] 4\n&gt; a+b+c\n[1] 18\n&gt; a-b\n[1] -6\nYou can also save the sequence of commands in a script, basically a text file that is saved with the .R extension, and run it in bash using:\nRscript sum_example.R\n\n\n\nThe base R come with a standard version of a Graphical User Interface (GUI), found at the instalation folder /bin/Rgui.exe\n\n\n\nR GUI Console\n\n\nHowever, this interface is very simple, and not ideal for editing scripts. For that, integrated development environment (IDE) can be used, which offer sets of tools built to help you be more productive."
+    "objectID": "index.html#about",
+    "href": "index.html#about",
+    "title": "Methylome Analysis (mi8016)",
+    "section": "About",
+    "text": "About\nSome intro text here."
   },
   {
-    "objectID": "docs/R_installation_tutorial.html#rstudio",
-    "href": "docs/R_installation_tutorial.html#rstudio",
-    "title": "The R Project for Statistical Computing",
-    "section": "RStudio",
-    "text": "RStudio\nRStudio can be dowloaded here\n\nRStudio Panes\n\nThe Source pane is where you can edit and save R or Python scripts or author computational documents like Quarto and R Markdown.\nThe Console pane is used to write short interactive R commands.\nThe Environment pane displays temporary R objects as created during that R session.\nThe Output pane displays the plots, tables, or HTML outputs of executed code along with files saved to disk.\n\n\n\n\nRStudio Panes\n\n\nYou can run and entire script by clicking the source button at the upper-right corner of the source pane. Alternatively, you can run the script interactively line by line by pressing Ctrl + ENTER.\nDetailed guides on RStudio can be found here"
-  },
-  {
-    "objectID": "docs/R_installation_tutorial.html#positron",
-    "href": "docs/R_installation_tutorial.html#positron",
-    "title": "The R Project for Statistical Computing",
-    "section": "Positron",
-    "text": "Positron\nPositron can be dowloaded here\nPositron might be a good fit for you if you\n\nuse VS Code for data science (Python or R) but wish it included more interactive affordances for data-specific tasks like running exploratory code, examining your variables and datasets, interacting with your plots, and developing data apps such as Shiny, Streamlit, or FastAPI.\nuse JupyterLab or hosted notebook tools for data science (Python or R) and are ready for a more powerful, fully-featured IDE that still supports notebooks.\nuse RStudio and want more ability to customize or extend your IDE.\nuse additional languages beyond only Python or R in your day-to-day data science or package development work, like Rust, C++, JavaScript, or Lua.\nwant access to powerful, data-science specific AI integrations in a modern, extensible IDE.\n\nPositron’s user interface (UI) should feel familiar to RStudio users, but there are also changes to get used to. First, let’s take a high-level, side-by-side view of the two IDEs. This figure highlights the role each area plays in your workflow and draws similarities between Positron and RStudio. You write code in an editor, run your code in the Console, and view outputs like plots, variables, and reports in dedicated panes or tabs.\n\n\n\nComparison of RStudio and Positron user interfaces\n\n\nHowever, there are few differences.\n\n\n\nInterface of the Positron IDE\n\n\nTwo specific UI elements are the most novel for RStudio users:\n\nThe Activity Bar provides access to different functional capabilities of Positron. Clicking here switches what appears in the Primary Side Bar.\nThe Primary Side Bar displays context-specific content based on which icon is clicked in the Activity Bar."
+    "objectID": "index.html#latest",
+    "href": "index.html#latest",
+    "title": "Methylome Analysis (mi8016)",
+    "section": "Latest",
+    "text": "Latest\n\nR Introduction\nMethylome Analysis"
   },
   {
     "objectID": "docs/methylome_analysis.html",
@@ -46,7 +39,7 @@
     "href": "docs/methylome_analysis.html#alignment-coverage",
     "title": "Research Trends in Toxicology",
     "section": "🧬 Alignment & coverage",
-    "text": "🧬 Alignment & coverage\n\n[!NOTE] This process is beyond the scope of this lecture. In short, the nfcore/methylseq:1.6.1 was used to align the reads to the reference genome and generate the coverage files (*.cov.gz)."
+    "text": "🧬 Alignment & coverage\n\n\n\n\n\n\nNote\n\n\n\nThis process is beyond the scope of this lecture. In short, the nfcore/methylseq:1.6.1 was used to align the reads to the reference genome and generate the coverage files (*.cov.gz)."
   },
   {
     "objectID": "docs/methylome_analysis.html#differential-methylation-analysis",
@@ -81,7 +74,7 @@
     "href": "docs/methylome_analysis.html#overlap-dmrs-with-genomics-regions",
     "title": "Research Trends in Toxicology",
     "section": "4. Overlap DMRs with genomics regions",
-    "text": "4. Overlap DMRs with genomics regions\nFind out which genomic regions (promoter, exon, intron, intergenic, CpG-islands) overlap with the DMRs.\n\n[!NOTE] We’ll need two tables that hold the information for CpG-islands position and genome annotations, both of which can be downloaded from University of California Santa Cruz (UCSC) Genomics Institute. These files are included in the repo, inside data/.\n\n\n\nDownload genome annotations\n\n\nAnnotations can be exported from the Table Browser tool at UCSC database. To download the annotations set the parameters as follow:\n\nCpG-islands annotations, save as cpgislands_GRCh38.bed\nclade = \"Mammals\" \ngenome = \"Human\"\nassembly = \"Dec. 2013 (GRCh38/hg38)\"\ngroup = \"Regulation\"\ntrack = \"CpG-islands\"\ntable = \"cpgIslandExt\"\noutput format = \"BED\"\noutput filename = \"cpgislands_GRCh38.bed\"\n\n&lt;click&gt; \"get output\" \n&lt;click&gt; \"get BED\"\n\nRefseq annotations, save as refseq_UCSC_GRCh38.bed\n\nclade = \"Mammals\" \ngenome = \"Human\"\nassembly = \"Dec. 2013 (GRCh38/hg38)\"\ngroup = \"Genes and Gene Predictions\"\ntrack = \"NCBI RefSeq\"\ntable = \"UCSC RefSeq (refGene)\"\noutput format = \"BED\"\noutput filename = \"refseq_UCSC_GRCh38.bed\"\n\n&lt;click&gt; \"get output\" \n&lt;click&gt; \"get BED\"\n\n\nRscript bin/methtable.R\nWill generate data/PFOS_MCF-10A_DMR.Rds\nAdditionally, a table from the gene perspective (each row is a gene), is useful from an explanatory approach.\nRscript bin/genetable.R\nWill generate data/PFOS_MCF-10A_DMG.Rds"
+    "text": "4. Overlap DMRs with genomics regions\nFind out which genomic regions (promoter, exon, intron, intergenic, CpG-islands) overlap with the DMRs.\n\n\n\n\n\n\nNote\n\n\n\nWe’ll need two tables that hold the information for CpG-islands position and genome annotations, both of which can be downloaded from University of California Santa Cruz (UCSC) Genomics Institute. These files are included in the repo, inside data/.\n\n\n\n\nDownload genome annotations\n\n\nAnnotations can be exported from the Table Browser tool at UCSC database. To download the annotations set the parameters as follow:\n\nCpG-islands annotations, save as cpgislands_GRCh38.bed\nclade = \"Mammals\" \ngenome = \"Human\"\nassembly = \"Dec. 2013 (GRCh38/hg38)\"\ngroup = \"Regulation\"\ntrack = \"CpG-islands\"\ntable = \"cpgIslandExt\"\noutput format = \"BED\"\noutput filename = \"cpgislands_GRCh38.bed\"\n\n&lt;click&gt; \"get output\" \n&lt;click&gt; \"get BED\"\n\nRefseq annotations, save as refseq_UCSC_GRCh38.bed\n\nclade = \"Mammals\" \ngenome = \"Human\"\nassembly = \"Dec. 2013 (GRCh38/hg38)\"\ngroup = \"Genes and Gene Predictions\"\ntrack = \"NCBI RefSeq\"\ntable = \"UCSC RefSeq (refGene)\"\noutput format = \"BED\"\noutput filename = \"refseq_UCSC_GRCh38.bed\"\n\n&lt;click&gt; \"get output\" \n&lt;click&gt; \"get BED\"\n\n\nRscript bin/methtable.R\nWill generate data/PFOS_MCF-10A_DMR.Rds\nAdditionally, a table from the gene perspective (each row is a gene), is useful from an explanatory approach.\nRscript bin/genetable.R\nWill generate data/PFOS_MCF-10A_DMG.Rds"
   },
   {
     "objectID": "docs/methylome_analysis.html#calculate-pathway-enrichment-scores",
@@ -105,31 +98,38 @@
     "text": "7. Generate figure 3\nGenerate figure 3 from PFOS MCF10A EMseq paper. The figure shows pathway enrichment results with GO terms matching the following keywords:\n\nmotor\nactin\nadhesion\ngrowth\ncollagen\nmyosin\nmicrotubule\ncytoskeletal\njunction\nextracellular\nlocomotion\n\nThese keywords are matched against the gene description and are relevant genes for PFOS induced phenotypes (previously demonstrated Pierozan and Karlsson, 2018).\nRscript bin/figure3.R\n\n\nFigure 3\n\n\n\n\n\nFigure 3"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Methylome Analysis (mi8016)",
+    "objectID": "docs/R_installation_tutorial.html",
+    "href": "docs/R_installation_tutorial.html",
+    "title": "The R Project for Statistical Computing",
     "section": "",
-    "text": "Welcome to my site!"
+    "text": "R is a free software environment for statistical computing and graphics (free as in freedom!).\nIt runs on a wide variety of UNIX-like platforms (e.g. Linux, MacOS) and Windows.\n\n\nYou can download R via the The Comprehensive R Archive Network (CRAN). CRAN is a network of ftp and web servers around the world that store identical, up-to-date, versions of code and documentation for R.\nYou should download and install the R version according to your operating system:\nR for Windows\nR for macOS\nR for Linux\n\n\n\nR is an integrated suite of software facilities for data manipulation, calculation and graphical display. It includes:\n\nAn effective data handling and storage facility\nA suite of operators for calculations on arrays, in particular matrices\nA large, coherent, integrated collection of intermediate tools for data analysis\nGraphical facilities for data analysis and display either on-screen or on hardcopy\nA well-developed, simple and effective programming language which includes conditionals, loops, user-defined recursive functions, and input and output facilities\n\nThe term “environment” is intended to characterize it as a fully planned and coherent system, rather than an incremental accretion of very specific and inflexible tools, as is frequently the case with other data analysis software.\n\n\n\n\n\n\nIf you are familiar with Linux, after installing you can open R directly from the command line interface by typing R and running the command with ENTER:\n$ R\n\nR version 4.5.2 (2025-10-31) -- \"[Not] Part in a Rumble\"\nCopyright (C) 2025 The R Foundation for Statistical Computing\nPlatform: x86_64-redhat-linux-gnu\n\nR is free software and comes with ABSOLUTELY NO WARRANTY.\nYou are welcome to redistribute it under certain conditions.\nType 'license()' or 'licence()' for distribution details.\n\n  Natural language support but running in an English locale\n\nR is a collaborative project with many contributors.\nType 'contributors()' for more information and\n'citation()' on how to cite R or R packages in publications.\n\nType 'demo()' for some demos, 'help()' for on-line help, or\n'help.start()' for an HTML browser interface to help.\nType 'q()' to quit R.\n\n&gt;\nAfter the &gt; is where you type the a specific R command, for example, a simple math problem 2+2, and then press ENTER which will print you the output 4, after the line number of the print output [1]:\n&gt; 2+2\n[1] 4\nYou can also store those values in an object that you can name anything you want, in this case, a, b, and c:\na &lt;- 2+2\n\nb &lt;- 5*2\n\nc &lt;- 12/3\n&gt; a\n[1] 4\n&gt; b\n[1] 10\n&gt; c\n[1] 4\n&gt; a+b+c\n[1] 18\n&gt; a-b\n[1] -6\nYou can also save the sequence of commands in a script, basically a text file that is saved with the .R extension, and run it in bash using:\nRscript sum_example.R\n\n\n\nThe base R come with a standard version of a Graphical User Interface (GUI), found at the instalation folder /bin/Rgui.exe\n\n\n\nR GUI Console\n\n\nHowever, this interface is very simple, and not ideal for editing scripts. For that, integrated development environment (IDE) can be used, which offer sets of tools built to help you be more productive."
   },
   {
-    "objectID": "index.html#about",
-    "href": "index.html#about",
-    "title": "Methylome Analysis (mi8016)",
-    "section": "About",
-    "text": "About\nSome intro text here."
-  },
-  {
-    "objectID": "index.html#latest",
-    "href": "index.html#latest",
-    "title": "Methylome Analysis (mi8016)",
-    "section": "Latest",
-    "text": "Latest\n\nR Introduction\nMethylome Analysis"
-  },
-  {
-    "objectID": "docs/t_test.html",
-    "href": "docs/t_test.html",
-    "title": "Methylome Analysis (mi8016)",
+    "objectID": "docs/R_installation_tutorial.html#getting-started",
+    "href": "docs/R_installation_tutorial.html#getting-started",
+    "title": "The R Project for Statistical Computing",
     "section": "",
-    "text": "https://doi.org/10.1007/s00204-017-2077-8 figure 3 A and B"
+    "text": "R is a free software environment for statistical computing and graphics (free as in freedom!).\nIt runs on a wide variety of UNIX-like platforms (e.g. Linux, MacOS) and Windows.\n\n\nYou can download R via the The Comprehensive R Archive Network (CRAN). CRAN is a network of ftp and web servers around the world that store identical, up-to-date, versions of code and documentation for R.\nYou should download and install the R version according to your operating system:\nR for Windows\nR for macOS\nR for Linux\n\n\n\nR is an integrated suite of software facilities for data manipulation, calculation and graphical display. It includes:\n\nAn effective data handling and storage facility\nA suite of operators for calculations on arrays, in particular matrices\nA large, coherent, integrated collection of intermediate tools for data analysis\nGraphical facilities for data analysis and display either on-screen or on hardcopy\nA well-developed, simple and effective programming language which includes conditionals, loops, user-defined recursive functions, and input and output facilities\n\nThe term “environment” is intended to characterize it as a fully planned and coherent system, rather than an incremental accretion of very specific and inflexible tools, as is frequently the case with other data analysis software."
+  },
+  {
+    "objectID": "docs/R_installation_tutorial.html#how-to-use-r",
+    "href": "docs/R_installation_tutorial.html#how-to-use-r",
+    "title": "The R Project for Statistical Computing",
+    "section": "",
+    "text": "If you are familiar with Linux, after installing you can open R directly from the command line interface by typing R and running the command with ENTER:\n$ R\n\nR version 4.5.2 (2025-10-31) -- \"[Not] Part in a Rumble\"\nCopyright (C) 2025 The R Foundation for Statistical Computing\nPlatform: x86_64-redhat-linux-gnu\n\nR is free software and comes with ABSOLUTELY NO WARRANTY.\nYou are welcome to redistribute it under certain conditions.\nType 'license()' or 'licence()' for distribution details.\n\n  Natural language support but running in an English locale\n\nR is a collaborative project with many contributors.\nType 'contributors()' for more information and\n'citation()' on how to cite R or R packages in publications.\n\nType 'demo()' for some demos, 'help()' for on-line help, or\n'help.start()' for an HTML browser interface to help.\nType 'q()' to quit R.\n\n&gt;\nAfter the &gt; is where you type the a specific R command, for example, a simple math problem 2+2, and then press ENTER which will print you the output 4, after the line number of the print output [1]:\n&gt; 2+2\n[1] 4\nYou can also store those values in an object that you can name anything you want, in this case, a, b, and c:\na &lt;- 2+2\n\nb &lt;- 5*2\n\nc &lt;- 12/3\n&gt; a\n[1] 4\n&gt; b\n[1] 10\n&gt; c\n[1] 4\n&gt; a+b+c\n[1] 18\n&gt; a-b\n[1] -6\nYou can also save the sequence of commands in a script, basically a text file that is saved with the .R extension, and run it in bash using:\nRscript sum_example.R\n\n\n\nThe base R come with a standard version of a Graphical User Interface (GUI), found at the instalation folder /bin/Rgui.exe\n\n\n\nR GUI Console\n\n\nHowever, this interface is very simple, and not ideal for editing scripts. For that, integrated development environment (IDE) can be used, which offer sets of tools built to help you be more productive."
+  },
+  {
+    "objectID": "docs/R_installation_tutorial.html#rstudio",
+    "href": "docs/R_installation_tutorial.html#rstudio",
+    "title": "The R Project for Statistical Computing",
+    "section": "RStudio",
+    "text": "RStudio\nRStudio can be dowloaded here\n\nRStudio Panes\n\nThe Source pane is where you can edit and save R or Python scripts or author computational documents like Quarto and R Markdown.\nThe Console pane is used to write short interactive R commands.\nThe Environment pane displays temporary R objects as created during that R session.\nThe Output pane displays the plots, tables, or HTML outputs of executed code along with files saved to disk.\n\n\n\n\nRStudio Panes\n\n\nYou can run and entire script by clicking the source button at the upper-right corner of the source pane. Alternatively, you can run the script interactively line by line by pressing Ctrl + ENTER.\nDetailed guides on RStudio can be found here"
+  },
+  {
+    "objectID": "docs/R_installation_tutorial.html#positron",
+    "href": "docs/R_installation_tutorial.html#positron",
+    "title": "The R Project for Statistical Computing",
+    "section": "Positron",
+    "text": "Positron\nPositron can be dowloaded here\nPositron might be a good fit for you if you\n\nuse VS Code for data science (Python or R) but wish it included more interactive affordances for data-specific tasks like running exploratory code, examining your variables and datasets, interacting with your plots, and developing data apps such as Shiny, Streamlit, or FastAPI.\nuse JupyterLab or hosted notebook tools for data science (Python or R) and are ready for a more powerful, fully-featured IDE that still supports notebooks.\nuse RStudio and want more ability to customize or extend your IDE.\nuse additional languages beyond only Python or R in your day-to-day data science or package development work, like Rust, C++, JavaScript, or Lua.\nwant access to powerful, data-science specific AI integrations in a modern, extensible IDE.\n\nPositron’s user interface (UI) should feel familiar to RStudio users, but there are also changes to get used to. First, let’s take a high-level, side-by-side view of the two IDEs. This figure highlights the role each area plays in your workflow and draws similarities between Positron and RStudio. You write code in an editor, run your code in the Console, and view outputs like plots, variables, and reports in dedicated panes or tabs.\n\n\n\nComparison of RStudio and Positron user interfaces\n\n\nHowever, there are few differences.\n\n\n\nInterface of the Positron IDE\n\n\nTwo specific UI elements are the most novel for RStudio users:\n\nThe Activity Bar provides access to different functional capabilities of Positron. Clicking here switches what appears in the Primary Side Bar.\nThe Primary Side Bar displays context-specific content based on which icon is clicked in the Activity Bar."
   }
 ]
