@@ -1,0 +1,14 @@
+---
+title: "Methylome Analysis (mi8016)"
+---
+
+Welcome to my site!
+
+## About
+
+Some intro text here.
+
+## Latest
+
+- [R Introduction](docs/R_installation_tutorial.md)
+- [Methylome Analysis](docs/methylome_analysis.qmd)

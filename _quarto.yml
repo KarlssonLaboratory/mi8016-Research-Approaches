@@ -1,0 +1,22 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Methylome Analysis (mi8016)"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: docs/R_installation_tutorial.md
+        text: R Introduction
+      - href: docs/methylome_analysis.md
+        text: Methylome Analysis
+      - href: docs/t_test.qmd
+        text: T-test
+      - href: docs/anova.qmd
+        text: ANOVA  
+
+format:
+  html:
+    theme: cosmo
