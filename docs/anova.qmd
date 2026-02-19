@@ -60,7 +60,7 @@ plot(dat, main = "Proliferation", ylab = "DAPI Positive cells", xlab = "")
 
 All functions in R comes with documentation, where the function and all the arguments the function takes in are described. To open the documentation use the question mark `?` before the name of the function, like `?plot` will show:
 
-```
+```yml
 plot                   package:base                    R Documentation
 
 Generic X-Y Plotting
@@ -80,6 +80,90 @@ Description:
 To exit the documentation, press `q`.
 
 :::
+
+R comes with many packages to help customise plots. [`ggplot2`](https://ggplot2.tidyverse.org/) is the most popular one and builts on "layers" of geometic objects, called `geom`. The dataset is loaded via the `ggplot()` function and mapped via aesthetics (`aes`). Aesthetics contols x, y, outline colors, inside fill colors, sizes, shapes etc.
+
+Lets style the plot with `ggplot2`! Run the code below:
+
+```{r}
+# Ones per machine
+#install.packages("ggplot2")
+
+# Every R sessoin
+library(ggplot2)
+
+ggplot(dat, aes(x = variable, y = value, fill = variable)) +
+  geom_bar(fun = "mean", stat = "summary", color = "black") +
+  theme_classic(base_size = 20) +
+  labs(
+    title = "Proliferation",
+    x = "",
+    y = "DAPI Positive cells")
+```
+
+The legend is not needed, remove it with `theme(legend.position = "none")`:
+
+```{r}
+ggplot(dat, aes(x = variable, y = value, fill = variable)) +
+  geom_bar(fun = "mean", stat = "summary", color = "black") +
+  theme_classic(base_size = 20) +
+  
+  theme(legend.position = "none") + # default: legend.position = "right"
+  
+  labs(
+    title = "Proliferation",
+    x = "",
+    y = "DAPI Positive cells")
+```
+
+We need to add "whiskers" to the plot, which shows mean +/- standard deviation, i.e the variance. Use `geom_errorbar`: 
+
+```{r}
+ggplot(dat, aes(x = variable, y = value, fill = variable)) +
+  geom_bar(fun = "mean", stat = "summary", color = "black") +
+  
+  geom_errorbar(
+  	stat = "summary",												# calculated on each group
+    fun.min = function(x) mean(x) - sd(x),	# bottom whisker
+    fun.max = function(x) mean(x) + sd(x), 	# top whisker
+    width = 0.4) + 													# width of whiskars
+  
+  theme_classic(base_size = 20) +
+  theme(legend.position = "none") +
+  labs(
+    title = "Proliferation",
+    x = "",
+    y = "DAPI Positive cells")
+```
+
+Tilt the x-axis text 45 degress. `theme` holds all arguments for the plots general appearence:
+
+::: {.callout-tip collapse=true title="theme documentation"}
+Check the doumentation: `?theme`
+
+Close with `q`.
+:::
+
+```{r}
+ggplot(dat, aes(x = variable, y = value, fill = variable)) +
+  geom_bar(fun = "mean", stat = "summary", color = "black") +
+  geom_errorbar(
+  	stat = "summary",
+    fun.min = function(x) mean(x) - sd(x),
+    fun.max = function(x) mean(x) + sd(x),
+    width = 0.4) + 
+  theme_classic(base_size = 18) +
+  
+  theme(
+  	legend.position = "none",
+  	axis.text.x = element_text(angle = 45, hjust = 1)) + # hjust = right-justifed
+  
+  labs(
+    title = "Proliferation",
+    x = "",
+    y = "DAPI Positive cells")
+```
+
 
 ### Statistics
 
@@ -122,34 +206,6 @@ Tukey–Kramer is essentially Tukey’s method generalized to unequal n’s, kee
 ```
 
 
-```{r}
-#control <- subset(a, variable == "Control")$value
-#dose250um <- subset(a, variable == "250 uM")$value
-
-#t.test(control, dose250um)
-
-library(ggplot2)
-library(ggsignif)
-
-ggplot(dat, aes(x = variable, y = value, fill = variable)) +
-  #geom_boxplot() +
-  geom_bar(fun = "mean", stat = "summary", color = "black") +
-  geom_signif(
-    test = "t.test",
-    comparisons = list(
-      c("Control", "250 uM"),
-      c("Control", "500 uM"),
-      c("Control", "1 mM")),
-    map_signif_level = TRUE,
-    step_increase = 0.1) +
-  #scale_y_log10() +
-  theme_classic(base_size = 20) +
-  #scale_fill_grey() +
-  labs(
-    title = "Proliferation",
-    x = "",
-    y = "DAPI Positive cells")
-```
 
 ::: {.callout-note collapse=true}
 
