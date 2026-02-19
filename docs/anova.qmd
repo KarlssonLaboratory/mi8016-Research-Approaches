@@ -1,8 +1,6 @@
 ---
 title: "Analysis of Variance - ANOVA"
 subtitle: "Comparison of multiple group means"
-
-code-annotations: select
 ---
 
 In the [PFOS paper from 2018](https://doi.org/10.1007/s00204-017-2077-8), PFOS in different doses and exposure times was applied and correlated with phenotypes such as proliferation, invation and migration. Here, we will reproduce the statistics and the figures for [figure 1F](https://link.springer.com/article/10.1007/s00204-017-2077-8/figures/1) and [figure 3](https://link.springer.com/article/10.1007/s00204-017-2077-8/figures/3). 
