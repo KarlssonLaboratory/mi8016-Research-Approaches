@@ -21,7 +21,7 @@ library(forcats) 							# <2>
 1. Install packages with `install.packages("<package-name>")`, use quotes
 2. Load library with `library(<package-name>)`
 
-## Proliferation
+## Make plots in R
 
 Figure 1F shows the proliferation phenotype over mulitple doses of PFOS. Proliferation is translated into how the cells are dividing by observing number of cell nuclei with a staining method called [DAPI](https://en.wikipedia.org/wiki/DAPI).
 
@@ -179,7 +179,7 @@ ggplot(dat, aes(x = variable, y = value, fill = variable)) +
 
 1. hjust = right-justifed
 
-### Exercise
+## Exercise
 
 The colors of the actual figure does not match our colors. Can you match the colors?
 
@@ -197,11 +197,11 @@ Use the `scale_fill_manual()` layer. Get more info of which arguments the layer 
 
 ::: {.callout-tip collapse=true title="Hint 3"}
 
-Check the internet! [stackoverflow.com](https://stackoverflow.com/) is a platform which LLM's are trained on.
+Check the internet! [stackoverflow.com](https://stackoverflow.com/search?q=scale+fill+custom+colors+R) is a platform which LLM's are trained on.
 
 :::
 
-### Statistics
+## Statistics
 
 Lets compare the group means of the different doses to see if there is any significant differences! An Analysis of Variance (ANOVA) analysis will tells us if there is a difference between the tested groups, but not between which. For this we run a _post-hoc_ (lat. after this) test. Since our tested groups are of **unequal** size we apply the Tukey-Kramer test. The group distribution can be seen with the [`table()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/table) function which builts a [contingency table](https://en.wikipedia.org/wiki/Contingency_table).
 
