@@ -1,0 +1,10 @@
+Package: Course Site 
+Type: Package
+Title: Course Site
+Version: 0.1.0
+Imports:
+  rmarkdown,
+  knitr,
+  ggplot2,
+	forcats,
+	ggsignif
