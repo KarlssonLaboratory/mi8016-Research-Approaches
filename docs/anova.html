@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Analysis of Variance - ANOVA – Research Approaches II: Data Analysis (mi8016)</title>
+<title>Analysis of Variance - ANOVA – Research Approaches II: Data Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -72,10 +72,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-3411e75870eb1c74db4b68af449406d8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-88db091e20e6c80d17cddb2965e5cc22.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Research Approaches II: Data Analysis (mi8016)</span>
+    <span class="navbar-title">Research Approaches II: Data Analysis</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -171,11 +171,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#proliferation" id="toc-proliferation" class="nav-link active" data-scroll-target="#proliferation">Proliferation</a>
-  <ul class="collapse">
+  <li><a href="#make-plots-in-r" id="toc-make-plots-in-r" class="nav-link active" data-scroll-target="#make-plots-in-r">Make plots in R</a></li>
   <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
   <li><a href="#statistics" id="toc-statistics" class="nav-link" data-scroll-target="#statistics">Statistics</a></li>
-  </ul></li>
   </ul>
 </nav>
 </nav>
@@ -226,8 +224,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </dl>
 </div>
 </div>
-<section id="proliferation" class="level2">
-<h2 class="anchored" data-anchor-id="proliferation">Proliferation</h2>
+<section id="make-plots-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="make-plots-in-r">Make plots in R</h2>
 <p>Figure 1F shows the proliferation phenotype over mulitple doses of PFOS. Proliferation is translated into how the cells are dividing by observing number of cell nuclei with a staining method called <a href="https://en.wikipedia.org/wiki/DAPI">DAPI</a>.</p>
 <p>Import the dataset, will be contained inside a “data frame”, and inspect it with the <code>head()</code> and <code>summary()</code> functions:</p>
 <div class="cell">
@@ -495,8 +493,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<section id="exercise" class="level3">
-<h3 class="anchored" data-anchor-id="exercise">Exercise</h3>
+</section>
+<section id="exercise" class="level2">
+<h2 class="anchored" data-anchor-id="exercise">Exercise</h2>
 <p>The colors of the actual figure does not match our colors. Can you match the colors?</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Hint 1">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
@@ -542,13 +541,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Check the internet! <a href="https://stackoverflow.com/">stackoverflow.com</a> is a platform which LLM’s are trained on.</p>
+<p>Check the internet! <a href="https://stackoverflow.com/search?q=scale+fill+custom+colors+R">stackoverflow.com</a> is a platform which LLM’s are trained on.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="statistics" class="level3">
-<h3 class="anchored" data-anchor-id="statistics">Statistics</h3>
+<section id="statistics" class="level2">
+<h2 class="anchored" data-anchor-id="statistics">Statistics</h2>
 <p>Lets compare the group means of the different doses to see if there is any significant differences! An Analysis of Variance (ANOVA) analysis will tells us if there is a difference between the tested groups, but not between which. For this we run a <em>post-hoc</em> (lat. after this) test. Since our tested groups are of <strong>unequal</strong> size we apply the Tukey-Kramer test. The group distribution can be seen with the <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/table"><code>table()</code></a> function which builts a <a href="https://en.wikipedia.org/wiki/Contingency_table">contingency table</a>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check group sizes</span></span>
@@ -590,7 +589,6 @@ Control  100 nM    1 uM   10 uM   50 uM  100 um  250 uM  500 uM    1 mM
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
