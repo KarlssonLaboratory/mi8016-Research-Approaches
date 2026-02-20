@@ -26,8 +26,12 @@ website:
 format:
   html:
     code-annotations: below
-    theme: pulse
-    highlight-style: arrow-dark
+    theme: 
+      light: pulse
+      darkly: darkly
+    highlight-style:
+      light: arrow
+      dark: arrow-dark
 
 execute:
   warning: false
