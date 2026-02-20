@@ -28,7 +28,7 @@ format:
     code-annotations: below
     theme: 
       light: pulse
-      darkly: darkly
+      dark: darkly
     highlight-style:
       light: arrow
       dark: arrow-dark
