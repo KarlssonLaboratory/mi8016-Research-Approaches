@@ -175,7 +175,7 @@ The `::` notation specifies which package a function comes from — useful when 
 
 ## Mini Project: Your First Data Analysis
 
-Let's put everything together with a short end-to-end analysis using the built-in `iris` dataset. Collected by botanist Edgar Anderson in 1935 and made famous by statistician Ronald Fisher, it contains measurements (in centimeters) of sepal length, sepal width, petal length, and petal width for 150 flowers across three species of the genus Iris: *setosa*, *versicolor*, and *virginica*. It's one of the most widely used datasets in data science and comes built into R — no downloading required.
+Let's put everything together with a short end-to-end analysis using the built-in `iris` dataset. Collected by botanist Edgar Anderson in 1935 and made famous by statistician [Ronald Fisher](https://en.wikipedia.org/wiki/Ronald_Fisher), it contains measurements (in centimeters) of sepal length, sepal width, petal length, and petal width for 150 flowers across three species of the genus Iris: *setosa*, *versicolor*, and *virginica*. It's one of the most widely used datasets in data science and comes built into R — no downloading required.
 
 ![Iris species](images/iris.png)
 
@@ -350,4 +350,4 @@ Be aware of allucinations, though. Always double-check your code and test to see
 - **Gemini** (Google) — [gemini.google.com](https://gemini.google.com)
 - **Copilot** (Microsoft) — [copilot.microsoft.com](https://copilot.microsoft.com)
 - **Llama** (Meta, open-source) — [llama.meta.com](https://llama.meta.com)
-- **Mistral** (Mistral AI, open-source) — [mistral.ai](https://mistral.ai)
+- **Mistral** (Mistral AI, open-source) — [mistral.ai](https://chat.mistral.ai/chat)
