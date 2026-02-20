@@ -8,7 +8,7 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - href: docs/R_installation_tutorial.md
+      - href: docs/r_tutorial.md
         text: R Introduction
       - href: docs/methylome_analysis.md
         text: Methylome Analysis
