@@ -8,32 +8,22 @@ toc-location: left  						# "left", "right" (default), or "body"
 toc-title: "Contents"
 ---
 
-In the [PFOS paper from 2018](https://doi.org/10.1007/s00204-017-2077-8), PFOS in different doses and exposure times was applied and correlated with phenotypes such as proliferation, invation and migration. Here, we will reproduce the statistics and the figures for [figure 1F](https://link.springer.com/article/10.1007/s00204-017-2077-8/figures/1) and [figure 3](https://link.springer.com/article/10.1007/s00204-017-2077-8/figures/3). 
+In the paper [PFOS induces proliferation, cell-cycle progression, and malignant phenotype in human breast epithelial cells, 2018](https://doi.org/10.1007/s00204-017-2077-8) (_PFOS phenotype paper_), PFOS in different doses and exposure times were applied and correlated with phenotypes such as proliferation, invasion and migration. Here, we will reproduce the statistics and the figures [1F](https://link.springer.com/article/10.1007/s00204-017-2077-8/figures/1). This figure shows the proliferation phenotype over mulitple doses of PFOS. Proliferation is translated into how the cells are dividing by observing number of cell nuclei with a staining method called [DAPI](https://en.wikipedia.org/wiki/DAPI).
 
-```{r}
-# Once per machine
-#install.packages("forcats") 	# <1>
+::: {.callout-note}
+Follow the code below to reproduce the figure:
+:::
 
-# Every R session
-library(forcats) 							# <2>
-```
-
-1. Install packages with `install.packages("<package-name>")`, use quotes
-2. Load library with `library(<package-name>)`
-
-## Make plots in R
-
-Figure 1F shows the proliferation phenotype over mulitple doses of PFOS. Proliferation is translated into how the cells are dividing by observing number of cell nuclei with a staining method called [DAPI](https://en.wikipedia.org/wiki/DAPI).
-
-Import the dataset, will be contained inside a "data frame", and inspect it with the `head()` and `summary()` functions:
+Import the dataset and inspect it with the `head()` and `summary()` functions:
 
 ```{r}
 # Import dataset
 dat <- read.csv("../data/proliferation.csv") 				# <1>
+```
 
-#rows <- !is.na(dat$value)
-#dat <- dat[rows,]
+1. This path is relative to where you start your R session. If you start inside `docs/` use `"../data/proliferation.csv"`, if you start inside the project folder use `"data/proliferation.csv"`.
 
+```{r}
 # head shows the top 6 rows of a data frame
 head(dat)
 
@@ -41,37 +31,50 @@ head(dat)
 summary(dat)
 ```
 
-1. This path is relative to where you start your R session. If you start inside `docs/` use `"../data/proliferation.csv"`, if you start inside the project folder use `"data/proliferation.csv"`.
-
-::: {.callout-tip collapse=true title="What can you read about the dataset?"}
+::: {.callout-tip collapse=true title="What did you learn about the dataset?"}
 The data frame is composed:
 
 + 2 columns : variables and value
 + 52 rows 	: all numeric with 2 NAs 
 :::
 
-Lets make a simple plot! 
+We'll be needing some basic packages to help us along the way. Install [`forcats`](https://forcats.tidyverse.org/).
 
-The `plot()` function can read a data frame and recognice that the variable column is categorical and the value column is numeric. With this a box-plot figure is built where `x = variable` and `y = value`:
+```{r}
+# Once per machine
+#install.packages("forcats")   # <1>
+
+# Every R session
+library(forcats)              # <2>
+```
+
+1. Install packages with `install.packages("<package-name>")`, use quotes
+2. Load library with `library(<package-name>)`
+
+Use the `forcats` function `fct_inorder()` to make the variable column in to factors _and_ in the order they appear.
 
 ```{r}
 # Make variable column into factor (categorical)
 dat$variable <- fct_inorder(dat$variable)         # <1>
-
-# Plot time!
-plot(dat)
 ```
 
 1. `forcats::fct_inorder` makes the categorices of the column the order they appear.
 
+**Lets make a simple plot!**
+
+The `plot()` function can read a data frame and recognice that the variable column is categorical and the value column is numeric. With this a box-plot figure is built where `x = variable` and `y = value`:
+
+```{r}
+plot(dat)
+```
+
 The plot function also takes in additional _arguments_, like `main`, `ylab` and `xlab`.
 
 ```{r}
-# main = title
-# ylab = text on y-axis
-# xlab = text on x-asis
-plot(dat, main = "Proliferation", ylab = "DAPI Positive cells", xlab = "")
+plot(dat, main = "Proliferation", ylab = "DAPI Positive cells", xlab = "") # <1>
 ```
+
+1. main = plot title, ylab = text on y-axis, xlab = text on x-asis
 
 ::: {.callout-tip collapse=true title="Function arguments"}
 
@@ -92,6 +95,8 @@ Description:
      ‘methods(plot)’ and the documentation for these. Most of these
      methods are implemented using traditional graphics (the ‘graphics’
      package), but this is not mandatory.
+
+     . . .
 ```
 
 To exit the documentation, press `q`.
@@ -129,7 +134,9 @@ The legend is not needed, remove it with `theme(legend.position = "none")`:
 ggplot(dat, aes(x = variable, y = value, fill = variable)) +
   geom_bar(fun = "mean", stat = "summary", color = "black") +
   theme_classic(base_size = 18) +
+  
   theme(legend.position = "none") + 														# <1>
+  
   labs(
     title = "Proliferation",
     x = "",
@@ -143,11 +150,13 @@ We need to add "whiskers" to the plot, which shows mean +/- standard deviation, 
 ```{r}
 ggplot(dat, aes(x = variable, y = value, fill = variable)) +
   geom_bar(fun = "mean", stat = "summary", color = "black") +
+  
   geom_errorbar(
   	stat = "summary",
     fun.min = function(x) mean(x) - sd(x),  # <1>
     fun.max = function(x) mean(x) + sd(x),  # <2>
     width = 0.4) +                          # <3> 
+  
   theme_classic(base_size = 18) +
   theme(legend.position = "none") +
   labs(
@@ -177,9 +186,11 @@ ggplot(dat, aes(x = variable, y = value, fill = variable)) +
     fun.max = function(x) mean(x) + sd(x),
     width = 0.4) + 
   theme_classic(base_size = 18) +
+  
   theme(
   	legend.position = "none",
   	axis.text.x = element_text(angle = 45, hjust = 1)) + 				# <1>
+  
   labs(
     title = "Proliferation",
     x = "",
