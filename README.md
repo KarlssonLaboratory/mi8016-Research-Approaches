@@ -2,20 +2,16 @@
 
 # Research Trends in Toxicology
 
-This repo holds the code needed for **Methylome Analysis** lecture in the [_Research Trends in Toxicology course_](https://www.su.se/english/education/course-catalogue/mi/mi8016). The lecture generates figure 1 and 3 from the [PFOS MCF10A EMseq](https://doi.org/10.1016/j.scitotenv.2024.174864) paper.
+This repository holds the code for **Research approaches II: Data analysis** lecture in the [_Research Trends in Toxicology course_](https://www.su.se/english/education/course-catalogue/mi/mi8016). The lecture generates figure and statistics from two papers
 
-# Agenda
+1. Figures [1](https://ars.els-cdn.com/content/image/1-s2.0-S0048969724050137-gr1_lrg.jpg) and [3](https://ars.els-cdn.com/content/image/1-s2.0-S0048969724050137-gr3_lrg.jpg) from paper [Perfluorooctanesulfonic acid (PFOS) induced cancer related DNA methylation alterations in human breast cells: A whole genome methylome study, 2024](https://doi.org/10.1016/j.scitotenv.2024.174864) (_PFOS EM-seq paper_).
+2. Figures [1F](https://link.springer.com/article/10.1007/s00204-017-2077-8/figures/1) and [3](https://link.springer.com/article/10.1007/s00204-017-2077-8/figures/3) from paper [PFOS induces proliferation, cell-cycle progression, and malignant phenotype in human breast epithelial cells, 2018](https://doi.org/10.1007/s00204-017-2077-8) (_PFOS phenotype paper_).
 
-+ Reproduce figure 1 and 3 from the [PFOS EM-seq paper](https://doi.org/10.1016/j.scitotenv.2024.174864).
-+ Share code for the process coverage files => DMR table (csv)
-+ Make slide showing the workflow of the methylome analysis
-+ Write stand along code to reproduce the figures
+# Computational analysis
 
----
+For the sequencing files for _PFOS EM-seq paper_ computation analysis is required. The steps to reproduce are below.
 
-# 🖥️ Computational analysis
-
-## 🧬 Alignment & coverage
+## Alignment & coverage
 
 > [!NOTE]
 > This process is beyond the scope of this lecture. In short, the [nfcore/methylseq:1.6.1](https://nf-co.re/methylseq/1.6.1) was used to align the reads to the reference genome and generate the coverage files (`*.cov.gz`).
@@ -34,7 +30,7 @@ For this we need to complete the follow steps:
 6. [Generate figure 1](#6-generate-figure-1)
 7. [Generate figure 3](#7-generate-figure-3)
 
-## 1. Map CpG-sites
+### 1. Map CpG-sites
 
 Extract the exact positions of `CG`-motifs in the human genome, save as text file `data/cpg_positions.txt.gz`. This table will be used to filter out only the CpG-sites for downstream analysis. To generate the file run this in the terminal (or run the script inside Positron / Rstudio):
 
@@ -81,8 +77,7 @@ The script requires the following R-packages: `BSgenome.Hsapiens.UCSC.hg38` and 
 
 Will generate `data/cpg_positions.txt.gz`.
 
-
-## 2. Extract Ensembl dataset
+### 2. Extract Ensembl dataset
 
 [Ensembl](https://ensembl.org/) is a public project providing access to reference genomes and gene annotations. We will be extracting all the known coding and non-coding genes gene positions.
 
@@ -92,8 +87,7 @@ Rscript bin/ensembl.R
 
 Will generate `data/ensembl_table.csv.gz`.
 
-
-## 3. Differentially methylated regions
+### 3. Differentially methylated regions
 
 Calulate **D**ifferentially **M**ethylated **R**egions (DMRs) focusing on CpG-sites - but we still call them regions.
 
@@ -105,8 +99,7 @@ Rscript bin/diffmeth.R
 
 Will generate `data/diffmeth.csv.gz`.
 
-
-## 4. Overlap DMRs with genomics regions
+### 4. Overlap DMRs with genomics regions
 
 Find out which genomic regions (promoter, exon, intron, intergenic, CpG-islands) overlap with the DMRs.
 
@@ -165,8 +158,7 @@ Rscript bin/genetable.R
 
 Will generate `data/PFOS_MCF-10A_DMG.Rds`
 
-
-## 5. Calculate pathway enrichment scores
+### 5. Calculate pathway enrichment scores
 
 Use the R-packages [`clusterProfiler`](https://bioconductor.org/packages//release/bioc/html/clusterProfiler.html) and [`org.Hs.eg.db`](https://www.bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html) to calculate pathway enrichment scores.
 
@@ -186,10 +178,9 @@ Rscript bin/gene_ontology.R
 
 Will generate `data/PFOS_MCF-10A_GO.Rds`
 
+### 6. Generate `figure 1`
 
-## 6. Generate `figure 1`
-
-Generate figure 1 from [PFOS MCF10A EMseq](https://doi.org/10.1016/j.scitotenv.2024.174864) paper. The figure is composed of five plots:
+Generate [figure 1](https://ars.els-cdn.com/content/image/1-s2.0-S0048969724050137-gr1_lrg.jpg) from [PFOS MCF10A EMseq](https://doi.org/10.1016/j.scitotenv.2024.174864) paper. The figure is composed of five plots:
 
 1. Methylation status of DMRs
 2. Genomic regions of DMRs
@@ -207,10 +198,9 @@ Rscript bin/figure1.R
   ![Figure 1](images/figure1.png)
 </details>
 
+### 7. Generate `figure 3`
 
-## 7. Generate `figure 3`
-
-Generate figure 3 from [PFOS MCF10A EMseq](https://doi.org/10.1016/j.scitotenv.2024.174864) paper. The figure shows pathway enrichment results with GO terms matching the following keywords:
+Generate [figure 3](https://ars.els-cdn.com/content/image/1-s2.0-S0048969724050137-gr3_lrg.jpg) from [PFOS MCF10A EMseq](https://doi.org/10.1016/j.scitotenv.2024.174864) paper. The figure shows pathway enrichment results with GO terms matching the following keywords:
 
 + motor
 + actin
