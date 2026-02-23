@@ -9,9 +9,10 @@
    - [RStudio](#rstudio)
    - [Positron](#positron)
 5. [R Packages](#r-packages)
-6. [Mini Project: Your First Data Analysis](#mini-project-your-first-data-analysis)
-7. [Troubleshooting](#troubleshooting)
-8. [Getting Help](#getting-help)
+6. [Working Directories](#working-directories)
+7. [Mini Project: Your First Data Analysis](#mini-project-your-first-data-analysis)
+8. [Troubleshooting](#troubleshooting)
+9. [Getting Help](#getting-help)
 
 ---
 
@@ -36,6 +37,39 @@ Download R from the [Comprehensive R Archive Network (CRAN)](https://cran.r-proj
 Once installed, you can launch R from the command line (Linux/macOS) or open the R application on Windows. However, most users work with an Integrated Development Environment (IDE) rather than the base interface — more on that in the [Choosing an IDE](#choosing-an-ide) section.
 
 ---
+
+## Choosing an Integrated Development Environment (IDE)
+
+While R comes with a basic graphical interface, most users find a dedicated IDE much more productive. Here are the two most popular options.
+
+### RStudio
+
+[RStudio](https://posit.co/download/rstudio-desktop/) is the most widely used IDE for R and the usual choice for beginners. Its interface is organized into four panes:
+
+1. **Source** — write and save your R scripts here
+2. **Console** — run commands interactively
+3. **Environment** — see the variables and data you've created
+4. **Output** — view plots, tables, files, and help documentation
+
+![RStudio Panes](images/rstudio-panes-labeled.jpeg)
+
+You can run code line by line with `Ctrl + Enter`, or run the entire script using the **Source** button in the top-right of the Source pane. Detailed guides are available at [docs.posit.co](https://docs.posit.co/ide/user/ide/get-started/).
+
+### Positron
+
+[Positron](https://positron.posit.co/download.html) is a newer IDE from the same team that built RStudio. It is built on the open-source foundation of Visual Studio Code ([Code OSS](https://github.com/microsoft/vscode)) and is a good fit if you:
+
+- work with multiple languages (Python, R, Bash, Quarto, etc.)
+- want access to the VS Code extensions marketplace
+- prefer a more customizable environment
+
+For beginners focused on R, RStudio is perfectly sufficient. Positron becomes more appealing as your work expands to other languages or tools.
+However, some data analysis features of Positron makes it even better than RStudio.
+
+![RStudio vs Positron comparison](images/user-interface-rstudio-vs-positron.jpeg)
+
+---
+
 
 ## Your First R Commands
 
@@ -101,41 +135,10 @@ Instead of typing commands one by one, you can save them in a script — a plain
 Rscript my_script.R
 ```
 
-In an IDE, you can run a script line by line with `Ctrl + Enter`, or all at once using the **Source** button.
+In an IDE, you can run a script line by line with `Ctrl + Enter` (`Cmd + Enter` in Mac), or all at once using the **Source** button.
 
 ---
 
-## Choosing an Integrated Development Environment (IDE)
-
-While R comes with a basic graphical interface, most users find a dedicated IDE much more productive. Here are the two most popular options.
-
-### RStudio
-
-[RStudio](https://posit.co/download/rstudio-desktop/) is the most widely used IDE for R and the usual choice for beginners. Its interface is organized into four panes:
-
-1. **Source** — write and save your R scripts here
-2. **Console** — run commands interactively
-3. **Environment** — see the variables and data you've created
-4. **Output** — view plots, tables, files, and help documentation
-
-![RStudio Panes](images/rstudio-panes-labeled.jpeg)
-
-You can run code line by line with `Ctrl + Enter`, or run the entire script using the **Source** button in the top-right of the Source pane. Detailed guides are available at [docs.posit.co](https://docs.posit.co/ide/user/ide/get-started/).
-
-### Positron
-
-[Positron](https://positron.posit.co/download.html) is a newer IDE from the same team that built RStudio. It is built on the open-source foundation of Visual Studio Code and is a good fit if you:
-
-- work with multiple languages (Python, R, Bash, Quarto, etc.)
-- want access to the VS Code extensions marketplace
-- prefer a more customizable environment
-
-For beginners focused on R, RStudio is perfectly sufficient. Positron becomes more appealing as your work expands to other languages or tools.
-However, some data analysis features of Positron makes it even better than RStudio.
-
-![RStudio vs Positron comparison](images/user-interface-rstudio-vs-positron.jpeg)
-
----
 
 ## R Packages
 
@@ -170,6 +173,85 @@ BiocManager::install("GenomicFeatures")
 ```
 
 The `::` notation specifies which package a function comes from — useful when two loaded packages share a function name.
+
+
+---
+
+## Working Directories
+
+When R reads or writes a file, it needs to know *where* to look. That location is called the **working directory** — the folder R treats as its home base for the current session.
+
+### Checking and Setting the Working Directory
+
+To see your current working directory:
+
+```r
+getwd()
+# e.g. "/home/username/projects/my_analysis"
+```
+
+To change it:
+
+```r
+setwd("/home/username/projects/my_analysis")
+```
+
+On Windows, use forward slashes or double backslashes in paths:
+
+```r
+setwd("C:/Users/username/projects/my_analysis")  # ✅
+setwd("C:\\Users\\username\\projects\\my_analysis")  # also ✅
+setwd("C:\Users\username\projects\my_analysis")  # ❌ single backslashes don't work
+```
+
+### Absolute vs. Relative Paths
+
+A **absolute path** gives the full location from the root of the file system:
+
+```r
+read.csv("/home/username/projects/my_analysis/data/proliferation.csv")
+```
+
+A **relative path** is defined *relative to the current working directory*. If your working directory is already `/home/username/projects/my_analysis`, you can write:
+
+```r
+read.csv("data/proliferation.csv")  # looks inside the working directory
+```
+
+This matters a lot in practice. Suppose your project is laid out like this:
+
+```
+my_analysis/
+├── data/
+│   └── proliferation.csv
+├── docs/
+│   └── report.Rmd
+└── analysis.R
+```
+
+If you start R inside `my_analysis/`, use:
+
+```r
+read.csv("data/proliferation.csv")
+```
+
+If you start R inside `my_analysis/docs/`, use:
+
+```r
+read.csv("../data/proliferation.csv")  # .. means "go up one folder"
+```
+
+The `..` notation steps up one level in the directory tree. You can chain them: `../../` goes up two levels, and so on.
+
+### Recommended Practice: Use RStudio Projects or Open a Folder in Positron
+
+Manually calling `setwd()` at the top of every script is fragile — the path will break on anyone else's machine (or your own, if you move the folder). Both RStudio and Positron offer better alternatives.
+
+**In RStudio**, use **Projects** (`.Rproj` files). When you open a project, RStudio automatically sets the working directory to the project root, so all relative paths in your scripts work consistently for everyone who opens it. To create one: **File → New Project**.
+
+**In Positron**, the working directory is tied to the folder you have open in the Explorer panel — the same model used by VS Code and other editors built on Code OSS. When you open a folder (**File → Open Folder…**), Positron sets that folder as the workspace root, and R sessions started from within it will use it as the working directory. You don't need a special project file; the open folder *is* the project. This makes it straightforward to work across multiple languages in the same folder without any extra configuration.
+
+As a rule of thumb: always use relative paths in your scripts, and let your IDE handle where the root is — whether that's an `.Rproj` file in RStudio or an open folder in Positron.
 
 ---
 
