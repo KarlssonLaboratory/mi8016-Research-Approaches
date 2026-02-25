@@ -3,22 +3,8 @@ Welcome to the lecture webpage for **Research Approaches II: Data Analysis**  (c
 1. [Figure 1F](https://link.springer.com/article/10.1007/s00204-017-2077-8/figures/1) and [figure 3](https://link.springer.com/article/10.1007/s00204-017-2077-8/figures/3) from paper [PFOS induces proliferation, cell-cycle progression, and malignant phenotype in human breast epithelial cells, 2018](https://doi.org/10.1007/s00204-017-2077-8) (_PFOS phenotype paper_).
 2. [Figures 1](https://ars.els-cdn.com/content/image/1-s2.0-S0048969724050137-gr1_lrg.jpg) and [figure 3](https://ars.els-cdn.com/content/image/1-s2.0-S0048969724050137-gr3_lrg.jpg) from paper [Perfluorooctanesulfonic acid (PFOS) induced cancer related DNA methylation alterations in human breast cells: A whole genome methylome study, 2024](https://doi.org/10.1016/j.scitotenv.2024.174864) (_PFOS EM-seq paper_).
 
-The whole lecture will be ran in R. Make sure you have the following packages installed:
-
-+ ggplot2
-+ forcats
-+ ggsignif
-+ ggpattern
-
-```r
-install.packages(c(
-	"ggplot2",
-	"forcats",
-	"ggsignif",
-	"ggpattern"
-))
-```
-
 ::: {.callout-important}
-An R tutorial can be found [here](docs/r_tutorial.md). If you are new to R, make sure you go through this tutorial before the lecture
+The whole lecture will be ran in R!
+
+If you are new to R, check out this [tutorial](docs/r_tutorial.md). Make sure you go through this tutorial before the lecture.
 :::

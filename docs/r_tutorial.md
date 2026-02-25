@@ -14,6 +14,7 @@
 8. [Troubleshooting](#troubleshooting)
 9. [Getting Help](#getting-help)
 
+
 ---
 
 ## Who This Guide Is For
@@ -142,7 +143,7 @@ In an IDE, you can run a script line by line with `Ctrl + Enter` (`Cmd + Enter` 
 
 ## R Packages
 
-R's functionality can be extended with **packages** — collections of functions, data, and documentation contributed by the community. There are thousands available.
+R's functionality can be extended with **packages** — collections of functions, data, and documentation contributed by the community. There are thousands available!
 
 ### Installing from CRAN
 
@@ -174,6 +175,20 @@ BiocManager::install("GenomicFeatures")
 
 The `::` notation specifies which package a function comes from — useful when two loaded packages share a function name.
 
+::: {.callout-important}
+
+For this lecture install the following packages:
+
+```r
+install.packages(c(
+  "ggplot2",
+  "forcats",
+  "ggsignif",
+  "ggpattern"
+))
+```
+
+:::
 
 ---
 
