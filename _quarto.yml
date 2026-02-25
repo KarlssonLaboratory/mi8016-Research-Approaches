@@ -29,7 +29,7 @@ format:
     code-annotations: below
     theme: 
       light: pulse
-      dark: darkly
+      dark: superhero
     highlight-style:
       light: arrow
       dark: breezedark
