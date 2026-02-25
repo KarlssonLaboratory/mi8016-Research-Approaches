@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -307,15 +342,37 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<hr>
-<hr>
-<p>Welcome to the lecture webpage for Research Approaches II: Data Analysis (course: <a href="https://www.su.se/english/education/course-catalogue/mi/mi8016">Research Trends in Toxicology (mi8016)</a>). This lecture reproduces the figures from two toxicology papers about <a href="https://en.wikipedia.org/wiki/Perfluorooctanesulfonic_acid">PFOS</a> <a href="https://doi.org/10.1007/s00204-017-2077-8">paper 1</a>, <a href="https://doi.org/10.1016/j.scitotenv.2024.174864">paper 2</a></p>
+<p>Welcome to the lecture webpage for <strong>Research Approaches II: Data Analysis</strong> (course: <a href="https://www.su.se/english/education/course-catalogue/mi/mi8016">Research Trends in Toxicology (mi8016)</a>). This lecture reproduces the figures from two toxicology papers about <a href="https://en.wikipedia.org/wiki/Perfluorooctanesulfonic_acid">PFOS</a>:</p>
+<ol type="1">
+<li><a href="https://link.springer.com/article/10.1007/s00204-017-2077-8/figures/1">Figure 1F</a> and <a href="https://link.springer.com/article/10.1007/s00204-017-2077-8/figures/3">figure 3</a> from paper <a href="https://doi.org/10.1007/s00204-017-2077-8">PFOS induces proliferation, cell-cycle progression, and malignant phenotype in human breast epithelial cells, 2018</a> (<em>PFOS phenotype paper</em>).</li>
+<li><a href="https://ars.els-cdn.com/content/image/1-s2.0-S0048969724050137-gr1_lrg.jpg">Figures 1</a> and <a href="https://ars.els-cdn.com/content/image/1-s2.0-S0048969724050137-gr3_lrg.jpg">figure 3</a> from paper <a href="https://doi.org/10.1016/j.scitotenv.2024.174864">Perfluorooctanesulfonic acid (PFOS) induced cancer related DNA methylation alterations in human breast cells: A whole genome methylome study, 2024</a> (<em>PFOS EM-seq paper</em>).</li>
+</ol>
+<p>The whole lecture will be ran in R. Make sure you have the following packages installed:</p>
 <ul>
-<li><a href="./docs/r_tutorial.html">R Introduction</a></li>
-<li><a href="./docs/t_test.html">T-test</a></li>
-<li><a href="./docs/anova.html">ANOVA</a></li>
-<li><a href="./docs/methylome_analysis.html">Methylome Analysis</a></li>
+<li>ggplot2</li>
+<li>forcats</li>
+<li>ggsignif</li>
+<li>ggpattern</li>
 </ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ggplot2"</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"forcats"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ggsignif"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ggpattern"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>An R tutorial can be found <a href="./docs/r_tutorial.html">here</a>. If you are new to R, make sure you go through this tutorial before the lecture</p>
+</div>
+</div>
 
 
 
