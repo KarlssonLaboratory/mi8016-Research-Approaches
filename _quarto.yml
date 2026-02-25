@@ -10,12 +10,13 @@ website:
         text: Home
       - href: docs/r_tutorial.md
         text: R Introduction
-      - href: docs/methylome_analysis.md
-        text: Methylome Analysis
-      - href: docs/t_test.qmd
-        text: T-test
       - href: docs/anova.qmd
         text: ANOVA  
+      - href: docs/t_test.qmd
+        text: T-test
+      - href: docs/methylome_analysis.md
+        text: Methylome Analysis
+
     right:
       - icon: github
         href: https://github.com/karlssonlaboratory/mi8016-Research-Approaches
@@ -31,7 +32,7 @@ format:
       dark: darkly
     highlight-style:
       light: arrow
-      dark: arrow-dark
+      dark: breezedark
 
 execute:
   warning: false

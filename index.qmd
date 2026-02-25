@@ -4,7 +4,7 @@
 
 Welcome to the lecture webpage for Research Approaches II: Data Analysis  (course: [Research Trends in Toxicology (mi8016)](https://www.su.se/english/education/course-catalogue/mi/mi8016)). This lecture reproduces the figures from two toxicology papers about [PFOS](https://en.wikipedia.org/wiki/Perfluorooctanesulfonic_acid) [paper 1](https://doi.org/10.1007/s00204-017-2077-8), [paper 2](https://doi.org/10.1016/j.scitotenv.2024.174864)
 
-+ [R Introduction](docs/R_installation_tutorial.md)
++ [R Introduction](docs/r_tutorial.md)
 + [T-test](docs/t_test.qmd)
 + [ANOVA](docs/anova.qmd)
-+ [Methylome Analysis](docs/methylome_analysis.qmd)
++ [Methylome Analysis](docs/methylome_analysis.md)
