@@ -8,3 +8,4 @@ Imports:
   ggplot2,
 	forcats,
 	ggsignif
+  ggpattern
