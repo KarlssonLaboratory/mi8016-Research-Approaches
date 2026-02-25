@@ -8,3 +8,9 @@ The whole lecture will be ran in R!
 
 If you are new to R, check out this [tutorial](docs/r_tutorial.md). Make sure you go through this tutorial before the lecture.
 :::
+
+### Lectures
+
++ [ANOVA](docs/anova.qmd)
++ [T-test](docs/t_test.md)
++ [Methylome analysis](docs/methylome_analysis.md)
