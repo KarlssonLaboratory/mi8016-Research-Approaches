@@ -77,7 +77,78 @@ dat$variable <- fct_inorder(dat$variable)         # <1>
 What happens if you do not include `dat$variable <- ` in the code above, and only write `fct_inorder(dat$variable)`?
 :::
 
+## Statistics
+
+Lets compare the group means of the different doses to see if there is any significant differences! An [Analysis of Variance (ANOVA)](https://en.wikipedia.org/wiki/Analysis_of_variance) analysis will tells us if there is a difference between the tested groups, but not between which. For this we run a _post-hoc_ (lat. after this) test. The [Tukey-Kramer test](https://en.wikipedia.org/wiki/Tukey%27s_range_test) is post-hoc test that will tell us between which groups there is a difference.
+
+The `aov()` function runs an ANOVA analysis. The formula argument reads `y ~ x`, hence we use `value ~ variabale`. The `summary()` function will show us the overall result of the ANOVA:
+
+```{r}
+model <- aov(formula = value ~ variable, data = dat)
+
+summary(model)
+```
+
+The `Pr(>F)` column holds the _p_-values. Here we can see that the model is significant. Lets found out between which groups. For this, run `TukeyHSD()` (Tukey Honest Significant Differences) test, with the model as argument. Print the results after:
+
+```{r}
+results <- TukeyHSD(model)
+
+results
+```
+
+We see all the comparisons now. We are only interested in the comparisons with `Control`. Instead of doing this manually lets extract those comparisons computationally. 
+
+`results` is an object. We want the data frame with comparisons only. This is found in `results$variable`:
+
+```{r}
+results$variable
+```
+
+The comparisons are not in a column but in the row names:
+
+```{r}
+rownames(results$variable)
+```
+
+`grep()` is a function that will match a string, lets use `"Control"` as the string. This will return which rows are matches:
+
+```{r}
+rows <- grep("Control", rownames(results$variable))
+rows
+```
+
+Now lets only select those rows:
+
+```{r}
+data <- results$variable[rows, ]
+```
+
+Make the object into a `data.frame()`
+
+```{r}
+data <- data.frame(data)
+```
+
+Check the results!
+
+```{r}
+data
+```
+
+Focus only on the significant ones. `subset()` filters columns based on criterias:
+
+```{r}
+subset(data, p.adj < 0.05)
+```
+
+> Now we know which doses are significant!
+
 ## Lets make a simple plot!
+
+::: {.callout-important}
+Remember that dat holds our data for the proliferation dataset!
+:::
 
 The `plot()` function can read a data frame and recognice that the variable column is factor and the value column is numeric. With this, a box-plot is generated with `x = variable` and `y = value`:
 
@@ -328,72 +399,7 @@ ggplot(dat, aes(
 3. Set the fill colors manually
 4. Set the pattern values manually
 
-## Statistics
-
-Lets compare the group means of the different doses to see if there is any significant differences! An Analysis of Variance (ANOVA) analysis will tells us if there is a difference between the tested groups, but not between which. For this we run a _post-hoc_ (lat. after this) test. The Tukey-Kramer test is post-hoc test that will tell us between which groups there is a difference.
-
-The `aov()` function runs an ANOVA analysis. The formula argument reads `y ~ x`, hence we use `value ~ variabale`. The `summary()` function will show us the overall result of the ANOVA:
-
-```{r}
-model <- aov(formula = value ~ variable, data = dat)
-
-summary(model)
-```
-
-The `Pr(>F)` column holds the _p_-values. Here we can see that the model is significant. Lets found out between which groups. For this, run `TukeyHSD()` (Tukey Honest Significant Differences) test, with the model as argument. Print the results after:
-
-```{r}
-results <- TukeyHSD(model)
-
-results
-```
-
-We see all the comparisons now. We are only interested in the comparisons with `Control`. Instead of doing this manually lets extract those comparisons computationally. 
-
-`results` is an object. We want the data frame with comparisons only. This is found in `results$variable`:
-
-```{r}
-results$variable
-```
-
-The comparisons are not in a column but in the row names:
-
-```{r}
-rownames(results$variable)
-```
-
-`grep()` is a function that will match a string, lets use `"Control"` as the string. This will return which rows are matches:
-
-```{r}
-rows <- grep("Control", rownames(results$variable))
-rows
-```
-
-Now lets only select those rows:
-
-```{r}
-data <- results$variable[rows, ]
-```
-
-Make the object into a `data.frame()`
-
-```{r}
-data <- data.frame(data)
-```
-
-Check the results!
-
-```{r}
-data
-```
-
-Lastly, lets only focus only on the significant ones. `subset()` filters columns based on criterias:
-
-```{r}
-subset(data, p.adj < 0.05)
-```
-
-Does our results match [figure 1F](https://link.springer.com/article/10.1007/s00204-017-2077-8/figures/1) of the paper??
+---
 
 ::: {.callout-note collapse=true}
 
