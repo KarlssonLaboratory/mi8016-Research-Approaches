@@ -46,7 +46,7 @@
     "href": "index.html",
     "title": "Research Approaches II: Data Analysis",
     "section": "",
-    "text": "Welcome to the lecture webpage for Research Approaches II: Data Analysis (course: Research Trends in Toxicology (mi8016)). This lecture reproduces the figures from two toxicology papers about PFOS:\n\nFigure 1F and figure 3 from paper PFOS induces proliferation, cell-cycle progression, and malignant phenotype in human breast epithelial cells, 2018 (PFOS phenotype paper).\nFigures 1 and figure 3 from paper Perfluorooctanesulfonic acid (PFOS) induced cancer related DNA methylation alterations in human breast cells: A whole genome methylome study, 2024 (PFOS EM-seq paper).\n\n\n\n\n\n\n\nImportant\n\n\n\nThe whole lecture will be ran in R!\nIf you are new to R, check out this tutorial. Make sure you go through this tutorial before the lecture."
+    "text": "Welcome to the lecture webpage for Research Approaches II: Data Analysis (course: Research Trends in Toxicology (mi8016)). This lecture reproduces the figures from two toxicology papers about PFOS:\n\nFigure 1F and figure 3 from paper PFOS induces proliferation, cell-cycle progression, and malignant phenotype in human breast epithelial cells, 2018 (PFOS phenotype paper).\nFigures 1 and figure 3 from paper Perfluorooctanesulfonic acid (PFOS) induced cancer related DNA methylation alterations in human breast cells: A whole genome methylome study, 2024 (PFOS EM-seq paper).\n\n\n\n\n\n\n\nImportant\n\n\n\nThe whole lecture will be ran in R!\nIf you are new to R, check out this tutorial. Make sure you go through this tutorial before the lecture.\n\n\n\nLectures\n\nANOVA\nT-test\nMethylome analysis"
   },
   {
     "objectID": "docs/r_tutorial.html",
