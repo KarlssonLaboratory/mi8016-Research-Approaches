@@ -7,5 +7,5 @@ Imports:
   knitr,
   ggplot2,
 	forcats,
-	ggsignif
+	ggsignif,
   ggpattern
