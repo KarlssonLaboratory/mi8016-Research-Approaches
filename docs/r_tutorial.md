@@ -182,6 +182,7 @@ For this lecture install the following packages:
 ```r
 install.packages(c(
   "ggplot2",
+  "readr",
   "forcats",
   "ggsignif",
   "ggpattern"

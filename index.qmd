@@ -11,6 +11,6 @@ If you are new to R, check out this [tutorial](docs/r_tutorial.md). Make sure yo
 
 ### Lectures
 
-+ [ANOVA](docs/anova.qmd)
 + [T-test](docs/t_test.md)
++ [ANOVA](docs/anova.qmd)
 + [Methylome analysis](docs/methylome_analysis.md)
