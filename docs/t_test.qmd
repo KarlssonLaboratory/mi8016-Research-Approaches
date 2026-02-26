@@ -119,7 +119,7 @@ res$p.value
 
 ## Lets make a simple plot!
 
-The `boxplot()` function generates boxes for our two columns, `migration$Control` and `migration$PFOS`:
+The `plot()` function generates boxes for our two columns, `migration$Control` and `migration$PFOS`:
 
 ```{r}
 plot(x = migration$name, y = migration$value)
