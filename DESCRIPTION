@@ -5,6 +5,7 @@ Version: 0.1.0
 Imports:
   rmarkdown,
   knitr,
+  readr,
   ggplot2,
 	forcats,
 	ggsignif,

@@ -20,16 +20,35 @@ Keep the [figure 1F](https://link.springer.com/article/10.1007/s00204-017-2077-8
 All code are ran inside R. If you need to install R follow [this tutorial](r_tutorial.md).
 :::
 
-## Import the data
+## Installing packages
 
-First we import the dataset of nuclei count and inspect it with the `head()` and `summary()` functions:
+We'll be needing some basic packages to help us along the way. Install [`forcats`](https://forcats.tidyverse.org/), [`readr`](https://readr.tidyverse.org/) and [`ggplot2`](https://ggplot2.tidyverse.org/).
 
-```{r}
-# Import dataset
-dat <- read.csv("../data/proliferation.csv") 				# <1>
+```r
+# Once per machine
+install.packages("forcats")     # <1>
+install.packages("readr")       # <1>
+install.packages("ggplot2")     # <1>
+
+library(forcats)                # <2>
 ```
 
-1. This path is relative to where you start your R session. If you start inside `docs/` use `"../data/proliferation.csv"`, if you start inside the project folder use `"data/proliferation.csv"`.
+1. Install packages with `install.packages("<package-name>")`, use quotes
+2. Load library with `library(<package-name>)`
+
+## Import the data
+
+Lets import the dataset of nuclei count. The dataset is found [here](https://github.com/KarlssonLaboratory/mi8016-Research-Approaches/blob/main/data/proliferation.csv). We will download it directly into R with the `read_csv()` function (`readr` packages)
+
+```{r}
+library(readr)
+url <- "https://raw.githubusercontent.com/KarlssonLaboratory/mi8016-Research-Approaches/main/data/proliferation.csv"
+
+# Import dataset
+dat <- read_csv(url)
+```
+
+Inspect the dataset with the `head()` and `summary()` functions:
 
 ```{r}
 head(dat)                 # <1>
@@ -51,19 +70,6 @@ The data frame is composed:
 
 To inspect the data frame fully, type the data frames name!
 :::
-
-We'll be needing some basic packages to help us along the way. Install [`forcats`](https://forcats.tidyverse.org/).
-
-```{r}
-# Once per machine
-#install.packages("forcats")    # <1>
-
-# Every R session
-library(forcats)                # <2>
-```
-
-1. Install packages with `install.packages("<package-name>")`, use quotes
-2. Load library with `library(<package-name>)`
 
 Use the `forcats` function `fct_inorder()` to make the variable column in to factors (categorical) _and_ in the order they appear.
 
