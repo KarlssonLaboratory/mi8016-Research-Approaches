@@ -85,6 +85,7 @@ To inspect the data frame fully, type the data frames name!
 Use the `forcats` function `fct_inorder()` to make the _name_ column in to factors (categorical) and in the order they appear.
 
 ```{r}
+library(forcats)
 migration$name <- fct_inorder(migration$name)         # <1>
 ```
 
@@ -188,9 +189,6 @@ ggplot(<dataframe>, aes(x = <column_x_values>, y = <column_y_values>, colors = <
 Lets style the plot with `ggplot2`! Run the code below:
 
 ```{r}
-# Ones per machine
-#install.packages("ggplot2")
-
 # Every R session
 library(ggplot2)
 
