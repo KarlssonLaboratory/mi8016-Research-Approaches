@@ -299,12 +299,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">R Introduction</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../docs/anova.html"> 
-<span class="menu-text">ANOVA</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link active" href="../docs/t_test.html" aria-current="page"> 
 <span class="menu-text">T-test</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../docs/anova.html"> 
+<span class="menu-text">ANOVA</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../docs/methylome_analysis.html"> 
@@ -580,7 +580,7 @@ mean in group Control    mean in group PFOS
 </section>
 <section id="lets-make-a-simple-plot" class="level2">
 <h2 class="anchored" data-anchor-id="lets-make-a-simple-plot">Lets make a simple plot!</h2>
-<p>The <code>boxplot()</code> function generates boxes for our two columns, <code>migration$Control</code> and <code>migration$PFOS</code>:</p>
+<p>The <code>plot()</code> function generates boxes for our two columns, <code>migration$Control</code> and <code>migration$PFOS</code>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> migration<span class="sc">$</span>name, <span class="at">y =</span> migration<span class="sc">$</span>value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
