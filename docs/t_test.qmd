@@ -1,4 +1,279 @@
-[doi](https://doi.org/10.1007/s00204-017-2077-8 )
+---
+title: "T-test"
+subtitle: "Comparison between two group means"
 
-figure 3 A and B
-https://link.springer.com/article/10.1007/s00204-017-2077-8/figures/3
+toc: true
+toc-depth: 3
+toc-location: left
+toc-title: "Contents"
+---
+
+In the paper [PFOS induces proliferation, cell-cycle progression, and malignant phenotype in human breast epithelial cells, 2018](https://doi.org/10.1007/s00204-017-2077-8) (_PFOS phenotype paper_), the adverse effects of PFOS are tested on a human cell line (MCF-10F), in multiple doses and exposure times. The adverse effects were assessed by investigating phenotypes such as proliferation, invasion and migration.
+
+Here, we will reproduce the statistics and the [figure 3](https://link.springer.com/article/10.1007/s00204-017-2077-8/figures/3). This figure shows the cell migration (A) and cell invasion (B) phenotypes of 10 µM PFOS for 72 h. Cell migration and invasion are by quantifying the cell nuclei count with [DAPI](https://en.wikipedia.org/wiki/DAPI), a staining method.
+
+::: {.callout-tip title="Compare to the original"}
+Keep the [figure 3](https://link.springer.com/article/10.1007/s00204-017-2077-8/figures/3) open in a separate tab during the tutorial so can easily compare it to ours.
+:::
+
+::: {.callout-important}
+All code are ran inside R. If you need to install R follow [this tutorial](r_tutorial.md).
+:::
+
+## Import the data
+
+First we import the dataset of nuclei count and inspect it with the `head()` and `summary()` functions:
+
+```{r}
+# Import dataset
+migration <- read.csv("../data/migration.csv") 				# <1>
+invasion <- read.csv("../data/invasion.csv") 					# <2>
+```
+
+1. This path is relative to where you start your R session. If you start inside `docs/` use `"../data/migration.csv"`, if you start inside the project folder use `"data/migration.csv"`.
+2. Same as for `invasion.csv`
+
+::: {.callout-important}
+The rest of the tutorial will use the _migration_ dataset. Since the setup of the _invasion_ dataset is identical you can use the same code to analysis as well.
+:::
+
+```{r}
+head(migration)                 # <1>
+```
+
+1. `head()` shows the top 6 rows of the data frame
+
+```{r}
+summary(migration)              # <1>
+```
+
+1. `summary()` shows ranges and types for each column
+
+::: {.callout-tip collapse=true title="What did you learn about the dataset?"}
+The data frame is composed:
+
++ 2 columns : named "name" and "value".
++ 3 values are NA's.
+
+To inspect the data frame fully, type the data frames name!
+:::
+
+We'll be needing some basic packages to help us along the way. Install [`forcats`](https://forcats.tidyverse.org/).
+
+```{r}
+# Once per machine
+#install.packages("forcats")    # <1>
+
+# Every R session
+library(forcats)                # <2>
+```
+
+1. Install packages with `install.packages("<package-name>")`, use quotes
+2. Load library with `library(<package-name>)`
+
+Use the `forcats` function `fct_inorder()` to make the variable column in to factors (categorical) _and_ in the order they appear.
+
+```{r}
+migration$name <- fct_inorder(migration$name)         # <1>
+```
+
+1. `forcats::fct_inorder` makes the categorices of the column the order they appear.
+
+::: {.callout-tip collapse=true}
+What happens if you do not include `migration$name <- ` in the code above, and only write `fct_inorder(migration$name)`?
+:::
+
+## Statistics
+
+Lets compare the means of the observed values for PFOS and control. Since there are two groups being compared a [student's t-test](https://en.wikipedia.org/wiki/Student%27s_t-test) is suffice.
+
+The `t.test()` function runs a t-test and takes the arguments for each group. `t.test()` returns a named list, with its elements accessable via the dollar sign `$` notation. 
+
+Run the t-test and check the results:
+
+```{r}
+res <- t.test(formula = value ~ name, data = migration)
+
+res
+```
+
+To single out the _p_-value run:
+
+```{r}
+res$p.value
+```
+
+> The result is very significant!
+
+## Lets make a simple plot!
+
+The `boxplot()` function generates boxes for our two columns, `migration$Control` and `migration$PFOS`:
+
+```{r}
+plot(x = migration$name, y = migration$value)
+```
+
+::: {.callout-tip}
+Try `plot(migration)` aswell, any difference?
+:::
+
+The `plot()` function also takes in additional _arguments_, like `main`, `ylab` and `xlab`. This will help us make the plot more understandable.
+
+```{r}
+plot(
+	migration,
+	main = "Migration", 											# <1>
+	ylab = "Number of migrating cells",				# <1>
+	xlab = ""																	# <1>
+)
+```
+
+1. main = plot title, ylab = text on y-axis, xlab = text on x-asis
+
+::: {.callout-tip collapse=true title="Function arguments"}
+
+All functions in R comes with documentation, where the function and all the arguments the function takes in are described. To open the documentation use the question mark `?` before the name of the function, like `?plot` will show:
+
+```yml
+plot                   package:base                    R Documentation
+
+Generic X-Y Plotting
+
+Description:
+
+     Generic function for plotting of R objects.
+
+     For simple scatter plots, ‘plot.default’ will be used.  However,
+     there are ‘plot’ methods for many R objects, including
+     ‘function’s, ‘data.frame’s, ‘density’ objects, etc.  Use
+     ‘methods(plot)’ and the documentation for these. Most of these
+     methods are implemented using traditional graphics (the ‘graphics’
+     package), but this is not mandatory.
+
+     . . .
+```
+
+To exit the documentation, press `q`.
+
+:::
+
+## Put a little flare on it
+
+R comes with many packages to help customise plots. [`ggplot2`](https://ggplot2.tidyverse.org/) is the most popular one and builts on "layers" of geometic objects, called `geom`. The dataset is loaded via the `ggplot()` function and mapped via aesthetics (`aes`). Aesthetics contols x, y, outline colors, inside fill colors, sizes, shapes etc.
+
+::: {.callout-tip collapse=true title="ggplot syntax"}
+
+```r
+ggplot(<dataframe>, aes(x = <column_x_values>, y = <column_y_values>, colors = <column>)) +
+  geom_<layer> +
+  geom_<layer> +
+  geom_<layer> +
+
+  . . .
+```
+
+:::
+
+Lets style the plot with `ggplot2`! Run the code below:
+
+```{r}
+# Ones per machine
+#install.packages("ggplot2")
+
+# Every R session
+library(ggplot2)
+
+ggplot(migration, aes(name, value, fill = name)) + 						# <1>
+	geom_bar(fun = "mean", stat = "summary", color = "black") + # <2>
+	theme_classic(base_size = 18) + 														# <3>
+  labs(
+    title = "Migration", 																			# <4>
+    x = "", 																									# <4>
+    y = "Number of migrating cells") 													# <4>
+```
+
+1. By adding a plus sign `+` multiple rows are chained fo the plot.
+2. `geom_bar()` uses the mean to calculate the top part of the bar.
+3. `theme_classic()` is on of many themes for decorating a plot. `base_size` sets the overall size.
+4. `labs()` holds arguments for text inputs for title, x-axis, y-axis, etc.
+
+The legend is not needed, remove it with `theme(legend.position = "none")`:
+
+```{r}
+ggplot(migration, aes(name, value, fill = name)) + 
+  geom_bar(fun = "mean", stat = "summary", color = "black") +
+  theme_classic(base_size = 18) +
+  
+  theme(legend.position = "none") + 														# <1>
+  
+  labs(
+    title = "Migration",
+    x = "",
+    y = "Number of migrating cells")
+```
+
+1. `legend.position` is set to "none" and therefor not rendered. Default value is `legend.position = "right"`.
+
+We need to add "whiskers" to the plot, which shows mean +/- standard deviation, i.e the variance. Use `geom_errorbar`: 
+
+```{r}
+ggplot(migration, aes(name, value, fill = name)) + 
+  geom_bar(fun = "mean", stat = "summary", color = "black") +
+  
+  geom_errorbar(
+  	stat = "summary",
+    fun.min = function(x) mean(x) - sd(x),  # <1>
+    fun.max = function(x) mean(x) + sd(x),  # <2>
+    width = 0.4) +                          # <3> 
+  
+  theme_classic(base_size = 18) +
+  theme(legend.position = "none") +
+  labs(
+    title = "Migration",
+    x = "",
+    y = "Number of migrating cells")
+```
+
+1. Bottom whisker
+2. Top whisker
+3. Width of whiskars
+
+Color the bars according to the original figure. 
+
+Manually set the colors:
+
+```{r}
+bar_colors <- c(
+  "white",
+  "grey40"
+)
+
+barplot(rep(1, length(bar_colors)), col = bar_colors) # <1>
+```
+
+1. Inspect the colors with a box-plot
+
+Put it all together!
+
+```{r}
+ggplot(migration, aes(name, value, fill = name)) + 
+  geom_bar(fun = "mean", stat = "summary", color = "black") +
+  geom_errorbar(
+    stat = "summary",
+    fun.min = function(x) mean(x) - sd(x),
+    fun.max = function(x) mean(x) + sd(x),
+    width = 0.4) +
+  
+  scale_fill_manual(values = bar_colors) +                      # <1>
+  
+  theme_classic(base_size = 18) +
+  theme(legend.position = "none") +
+  labs(
+    title = "Migration",
+    x = "",
+    y = "Number of migrating cells")
+```
+
+1. Set the fill colors manually
+
+---
