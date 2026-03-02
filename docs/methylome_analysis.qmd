@@ -1,8 +1,30 @@
-# Research Trends in Toxicology
+---
+title: "Methylome Analysis"
+subtitle: "Identifying differentially methylated regions"
 
-This repo holds the code needed for **Methylome Analysis** lecture in the [_Research Trends in Toxicology course_](https://www.su.se/english/education/course-catalogue/mi/mi8016). The lecture generates figure 1 and 3 from the [PFOS MCF10A EMseq](https://doi.org/10.1016/j.scitotenv.2024.174864) paper.
+toc: true
+toc-depth: 3
+toc-location: left
+toc-title: "Contents"
+---
 
-## File structure
+In the paper [Perfluorooctanesulfonic acid (PFOS) induced cancer related DNA methylation alterations in human breast cells: A whole genome methylome study, 2024](https://doi.org/10.1016/j.scitotenv.2024.174864) (_PFOS EMseq paper_), the adverse effects of PFOS were correlated with the DNA methylation landscape of the human cell line (MCF-10F). The dose used was 1 µM PFOS for 72 h.
+
+Here, we will reproduce the [figure 1](https://ars.els-cdn.com/content/image/1-s2.0-S0048969724050137-gr1_lrg.jpg) and [figure 3](https://ars.els-cdn.com/content/image/1-s2.0-S0048969724050137-gr3_lrg.jpg), these show the descriptive statistics and gene ontology results, respectively.
+
+:::{.callout-important}
+
+The computational analysis is divided into two sections; (1) computational analysis and (2) figure generation. Computational analysis section is not executed, but all data for figure generation is supplied.
+
+:::
+
+---
+
+# 🖥️ Computational analysis
+
+:::{.callout-tip collapse=true title="File structure"}
+
+Github file structure
 
 ```
 project/
@@ -23,9 +45,7 @@ project/
     └── refseq_UCSC_GRCh38.bed
 ```
 
----
-
-# 🖥️ Computational analysis
+:::
 
 ## 🧬 Alignment & coverage
 
@@ -44,8 +64,6 @@ For this we need to complete the follow steps:
 3. [Differentially methylated regions](#3-differentially-methylated-regions)
 4. [Overlap DMRs with genomics regions](#4-overlap-dmrs-with-genomics-regions)
 5. [Calculate pathway enrichment scores](#5-calculate-pathway-enrichment-score)
-6. [Generate figure 1](#6-generate-figure-1)
-7. [Generate figure 3](#7-generate-figure-3)
 
 ## 1. Map CpG-sites
 
@@ -200,8 +218,11 @@ Rscript bin/gene_ontology.R
 
 Will generate `data/PFOS_MCF-10A_GO.Rds`
 
+---
 
-## 6. Generate `figure 1`
+# Generate figures
+
+## Generate `figure 1`
 
 Generate figure 1 from [PFOS MCF10A EMseq](https://doi.org/10.1016/j.scitotenv.2024.174864) paper. The figure is composed of five plots:
 
@@ -221,8 +242,7 @@ Rscript bin/figure1.R
   ![Figure 1](images/emseq_pfos_figure1.png)
 </details>
 
-
-## 7. Generate `figure 3`
+## Generate `figure 3`
 
 Generate figure 3 from [PFOS MCF10A EMseq](https://doi.org/10.1016/j.scitotenv.2024.174864) paper. The figure shows pathway enrichment results with GO terms matching the following keywords:
 

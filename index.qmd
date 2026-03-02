@@ -13,4 +13,4 @@ If you are new to R, check out this [tutorial](docs/r_tutorial.md). Make sure yo
 
 + [T-test](docs/t_test.md)
 + [ANOVA](docs/anova.qmd)
-+ [Methylome analysis](docs/methylome_analysis.md)
++ [Methylome analysis](docs/methylome_analysis.qmd)

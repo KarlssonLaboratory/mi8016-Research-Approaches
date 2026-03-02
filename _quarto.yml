@@ -14,7 +14,7 @@ website:
         text: T-test
       - href: docs/anova.qmd
         text: ANOVA  
-      - href: docs/methylome_analysis.md
+      - href: docs/methylome_analysis.qmd
         text: Methylome Analysis
 
     right:
