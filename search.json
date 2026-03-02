@@ -98,18 +98,18 @@
     "text": "5. Calculate pathway enrichment scores\nUse the R-packages clusterProfiler and org.Hs.eg.db to calculate pathway enrichment scores.\n\nRscript bin/gene_ontology.R\nWill generate data/PFOS_MCF-10A_GO.Rds"
   },
   {
-    "objectID": "docs/methylome_analysis.html#generate-figure-1",
-    "href": "docs/methylome_analysis.html#generate-figure-1",
+    "objectID": "docs/methylome_analysis.html#figure-1",
+    "href": "docs/methylome_analysis.html#figure-1",
     "title": "Methylome Analysis",
-    "section": "Generate figure 1",
-    "text": "Generate figure 1\nGenerate figure 1 from PFOS MCF10A EMseq paper. The figure is composed of five plots:\n\nMethylation status of DMRs\nGenomic regions of DMRs\nDM CpG-islands\nGenes overlapping DMRs\nGene types of DMRs overlapping with promoter, exon and/or CGI\n\nRscript bin/figure1.R\n\n\nFigure 1\n\n\n\n\n\nFigure 1"
+    "section": "Figure 1",
+    "text": "Figure 1\nGenerate figure 1 from PFOS MCF10A EMseq paper. The figure is composed of five plots:\n\nMethylation status of DMRs\nGenomic regions of DMRs\nDM CpG-islands\nGenes overlapping DMRs\nGene types of DMRs overlapping with promoter, exon and/or CGI\n\nRscript bin/figure1.R\n\n\nFigure 1\n\n\n\n\n\nFigure 1"
   },
   {
-    "objectID": "docs/methylome_analysis.html#generate-figure-3",
-    "href": "docs/methylome_analysis.html#generate-figure-3",
+    "objectID": "docs/methylome_analysis.html#figure-3",
+    "href": "docs/methylome_analysis.html#figure-3",
     "title": "Methylome Analysis",
-    "section": "Generate figure 3",
-    "text": "Generate figure 3\nGenerate figure 3 from PFOS MCF10A EMseq paper. The figure shows pathway enrichment results with GO terms matching the following keywords:\n\nmotor\nactin\nadhesion\ngrowth\ncollagen\nmyosin\nmicrotubule\ncytoskeletal\njunction\nextracellular\nlocomotion\n\nThese keywords are matched against the gene description and are relevant genes for PFOS induced phenotypes (previously demonstrated Pierozan and Karlsson, 2018).\nRscript bin/figure3.R\n\n\nFigure 3\n\n\n\n\n\nFigure 3"
+    "section": "Figure 3",
+    "text": "Figure 3\nGenerate figure 3 from PFOS MCF10A EMseq paper. The figure shows pathway enrichment results with GO terms matching the following keywords:\n\nmotor\nactin\nadhesion\ngrowth\ncollagen\nmyosin\nmicrotubule\ncytoskeletal\njunction\nextracellular\nlocomotion\n\nThese keywords are matched against the gene description and are relevant genes for PFOS induced phenotypes (previously demonstrated Pierozan and Karlsson, 2018).\nRscript bin/figure3.R\n\n\nFigure 3\n\n\n\n\n\nFigure 3"
   },
   {
     "objectID": "index.html",
