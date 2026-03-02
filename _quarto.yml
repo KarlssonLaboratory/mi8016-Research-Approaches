@@ -16,7 +16,7 @@ website:
         text: ANOVA  
       - href: docs/methylome_analysis.md
         text: Methylome Analysis
-        ../computational_toxicology/computational_toxicology.qmd
+        docs/computational_toxicology.qmd
 
     right:
       - icon: github
