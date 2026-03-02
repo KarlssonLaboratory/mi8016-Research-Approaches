@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>methylome_analysis – Research Approaches II: Data Analysis</title>
+<title>computational_toxicology – Research Approaches II: Data Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -307,11 +307,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">ANOVA</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../docs/methylome_analysis.html" aria-current="page"> 
+    <a class="nav-link" href="../docs/methylome_analysis.html"> 
 <span class="menu-text">Methylome Analysis</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../docs/computational_toxicology.html"> 
+    <a class="nav-link active" href="../docs/computational_toxicology.html" aria-current="page"> 
 <span class="menu-text">Toxicology</span></a>
   </li>  
 </ul>
@@ -346,242 +346,312 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="research-trends-in-toxicology" class="level1">
-<h1>Research Trends in Toxicology</h1>
-<p>This repo holds the code needed for <strong>Methylome Analysis</strong> lecture in the <a href="https://www.su.se/english/education/course-catalogue/mi/mi8016"><em>Research Trends in Toxicology course</em></a>. The lecture generates figure 1 and 3 from the <a href="https://doi.org/10.1016/j.scitotenv.2024.174864">PFOS MCF10A EMseq</a> paper.</p>
-<section id="file-structure" class="level2">
-<h2 class="anchored" data-anchor-id="file-structure">File structure</h2>
-<pre><code>project/
-├── bin/
-│   ├── cpg_positions.R
-│   ├── diffmeth.R
-│   ├── ensembl.R
-│   ├── figure1.R
-│   ├── figure3.R
-│   ├── gene_ontology.R
-│   ├── genetable.R
-│   └── methtable.R
-└── data/
-    ├── PFOS_MCF-10A_DMG.Rds
-    ├── PFOS_MCF-10A_DMR.Rds
-    ├── PFOS_MCF-10A_GO.Rds
-    ├── cpgislands_GRCh38.bed
-    └── refseq_UCSC_GRCh38.bed</code></pre>
+<section id="toxicology" class="level2">
+<h2 class="anchored" data-anchor-id="toxicology">Toxicology</h2>
+<p>Toxicology studies the adverse effects of chemicals on living organisms, by investigating the relationship between <strong>dose</strong> and <strong>effect</strong>, <em>dose-response</em>, and route of admission.<br><br></p>
+<p><img src="images/260216_adverse_effects_chatgpt.png" class="absolute img-fluid" data-left="0" data-top="250" width="500"> <img src="images/dose_response.jpg" class="absolute img-fluid" data-right="0" data-top="250" width="500"></p>
+<p>. . .</p>
+<blockquote class="blockquote">
+<p><em><a href="https://en.wikipedia.org/wiki/The_dose_makes_the_poison">“The doses make the poison”</a> - Paracelsus 1500-ish</em></p>
+</blockquote>
+</section>
+<section id="predictive-toxicology" class="level2">
+<h2 class="anchored" data-anchor-id="predictive-toxicology">Predictive Toxicology</h2>
+<div class="columns">
+<div class="column" style="width:65%;">
+<p><span class="fragment">Predictive (computational) toxicology combines computational power with the principles of toxicology to infer the risks associated with chemicals that are not yet extensively studied or for extrapolating toxicity data from one species to another.</span></p>
+<p><span class="fragment"><strong>New Appraoch Methodologies (NAM)</strong>, replaces traditional animal testing with non-mammalian models, <em>like C. elegans, Drosophila, Daphnia</em>, cell lines (<em>in vitro</em> “in glass” lat.), and solely computationally (machine learning). These methods are <strong>faster, cheaper and reduce number of animals tested!</strong> The results are translated into underlying physiological mechanisms that lead to prediction of adverse effects in humans.</span></p>
+<p><span class="fragment"><strong>High-Throughput Screening (HTS)</strong>, used to test as many chemicals as fast as possible. This include improving the wet lab, data gathering, data processing, prediction and forming conclusions. Here cell-assays and automated computational pipelines are play a significant role.</span></p>
+</div><div class="fragment">
+<p><img src="images/svt-pfas-240109.png" class="absolute img-fluid" data-top="70" data-right="0" width="350"> <span class="absolute" data-top="590" data-right="0" style="text-align: right; font-size: 0.8em; font-style: italic;">PFAS invented 1940-ish</span></p>
+</div>
+</div>
+</section>
+<section id="quantitative-structureactivity-relationship-qsar" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="quantitative-structureactivity-relationship-qsar">Quantitative Structure–Activity Relationship (QSAR)</h2>
+<p>QSAR is a computational modeling method used <strong>to predict</strong> the biological activity of chemical compounds based on their molecular structure.</p>
+<p>. . .</p>
+<p><em>Concept</em>: similar structures == similar activities.</p>
+<p>. . .</p>
+<p>If we know how a set of molecules behave biologically, we can build a mathematical model that links their structural features to that behavior — then use it to predict how new, <strong>untested</strong> molecules might behave.</p>
+<p><span class="fragment"><img src="images/QSAR.png" class="img-fluid"></span></p>
+<hr>
+</section>
+<section id="quantitative-structureactivity-relationship-qsar-1" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="quantitative-structureactivity-relationship-qsar-1">Quantitative Structure–Activity Relationship (QSAR)</h2>
+<p><em>Step #1:</em> Translate chemical structures into numerical descriptors (something a computer can read)</p>
+<p>. . .</p>
+<section id="numerical-descriptors" class="level3">
+<h3 class="anchored" data-anchor-id="numerical-descriptors"><a href="https://books.rsc.org/books/edited-volume/2061/chapter/6376976/Physicochemical-Properties">Numerical descriptors</a></h3>
+<p>Numerical values (vectors, strings, matrix) that encode <strong>structural</strong> and <strong>physicochemical</strong> properties of a molecule:</p>
+<ul>
+<li>Molecular weight, logP (lipophilicity), polar surface area</li>
+<li>Number of hydrogen bond donors/acceptors</li>
+<li>Topological indices (how atoms are connected)</li>
+<li>Electronic properties (charge distribution)</li>
+<li>3D shape features</li>
+</ul>
+<div class="fragment">
+<p>These are the <em>independent variable</em>, the <code>x</code></p>
+</div>
+<p><span class="fragment"><img src="images/molecular_fingerprint.png" class="absolute img-fluid" data-bottom="0" data-left="0" width="480" alt="molecular fingerprint"></span> <span class="fragment"><img src="images/molecular_fingerprint2.png" class="absolute img-fluid" data-bottom="0" data-right="0" width="550" alt="molecular fingerprint2"></span></p>
 <hr>
 </section>
 </section>
-<section id="computational-analysis" class="level1">
-<h1>🖥️ Computational analysis</h1>
-<section id="alignment-coverage" class="level2">
-<h2 class="anchored" data-anchor-id="alignment-coverage">🧬 Alignment &amp; coverage</h2>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="quantitative-structureactivity-relationship-qsar-2" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="quantitative-structureactivity-relationship-qsar-2">Quantitative Structure–Activity Relationship (QSAR)</h2>
+<p><em>Step #2:</em> Measure biological activity, which comes from consistent, reliable experimental measurements.</p>
+<p>. . .</p>
+<section id="biological-activity" class="level3">
+<h3 class="anchored" data-anchor-id="biological-activity">Biological activity</h3>
+<ul>
+<li>Enzyme inhibition</li>
+<li>Binding affinity</li>
+<li>Toxicity score</li>
+<li>Solubility</li>
+<li>Bioactivity</li>
+</ul>
+<div class="fragment">
+<p>This is the <em>dependent variable</em>, the <code>y</code></p>
 </div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>This process is beyond the scope of this lecture. In short, the <a href="https://nf-co.re/methylseq/1.6.1">nfcore/methylseq:1.6.1</a> was used to align the reads to the reference genome and generate the coverage files (<code>*.cov.gz</code>).</p>
-</div>
-</div>
+<hr>
 </section>
-<section id="differential-methylation-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="differential-methylation-analysis">Differential methylation analysis</h2>
-<p>We want to identify the <strong>D</strong>ifferentially <strong>M</strong>ethylated <strong>R</strong>egions (DMRs) focusing on CpG-sites - but we still call them regions. These DMRs are overlapped with annotated gene positions to identify <strong>D</strong>ifferentially <strong>M</strong>ethylated <strong>G</strong>enes (DMGs), with genes being considored if a DMR is found inside the promoter or the exon, as these genomic regions when influced by DNA methylation affect the transcription machinery. DMR inside introns are not considored. Lastly, the identified DMGs are tested for gene pathway enrichment to understand which gene pathways are affected by PFOS exposure.</p>
-<p>For this we need to complete the follow steps:</p>
-<ol type="1">
-<li><a href="#1-map-cpg-sites">Map CpG-sites</a></li>
-<li><a href="#2-extract-ensembl-dataset">Extract Ensembl dataset</a></li>
-<li><a href="#3-differentially-methylated-regions">Differentially methylated regions</a></li>
-<li><a href="#4-overlap-dmrs-with-genomics-regions">Overlap DMRs with genomics regions</a></li>
-<li><a href="#5-calculate-pathway-enrichment-score">Calculate pathway enrichment scores</a></li>
-<li><a href="#6-generate-figure-1">Generate figure 1</a></li>
-<li><a href="#7-generate-figure-3">Generate figure 3</a></li>
-</ol>
 </section>
-<section id="map-cpg-sites" class="level2">
-<h2 class="anchored" data-anchor-id="map-cpg-sites">1. Map CpG-sites</h2>
-<p>Extract the exact positions of <code>CG</code>-motifs in the human genome, save as text file <code>data/cpg_positions.txt.gz</code>. This table will be used to filter out only the CpG-sites for downstream analysis. To generate the file run this in the terminal (or run the script inside Positron / Rstudio):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/cpg_positions.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The script requires the following R-packages: <code>BSgenome.Hsapiens.UCSC.hg38</code> and <code>readr</code>.</p>
-<details>
-<summary>
-How to install R-packages
-</summary>
-<p><br></p>
+<section id="quantitative-structureactivity-relationship-qsar-3" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="quantitative-structureactivity-relationship-qsar-3">Quantitative Structure–Activity Relationship (QSAR)</h2>
+<p><em>Step #3:</em> The statistical or machine learning model</p>
+<p>. . .</p>
+<section id="mathematical-model" class="level3">
+<h3 class="anchored" data-anchor-id="mathematical-model">Mathematical model</h3>
+<p>Historically, simple linear regression was used. Modern QSAR uses random forests, support vector machines, neural networks, and more.</p>
+<ul>
+<li>Linear regression</li>
+<li>Partial least squares</li>
+<li>Discriminant analysis</li>
+<li>Random forests (ML)</li>
+<li>Deep neural networks (ML)</li>
+</ul>
+<div class="notes">
+<p>Chemical structures are translated into numerical descriptors, such as molecular weight (physicochemical), <strong>molecular fingerprints</strong> (topological), and partial charges or frontier orbital energies (electronic), which are then correlated with toxicological endpoints like acute toxicity, bioactivity, enzyme inhibition or receptor binding.</p>
+<p>Traditional QSAR approaches employ linear regression, partial least squares, or discriminant analysis, while modern QSAR increasingly relies on machine learning techniques such as random forests, support vector machines, and deep neural networks. QSAR models are widely used for screening large chemical libraries, prioritizing substances for testing, and supporting regulatory decision-making, particularly when experimental data are sparse or unavailable.</p>
 <blockquote class="blockquote">
-<p>Assuming you have R already installed</p>
+<p>Physico-chemical properties = Physical + Solvation + Molecular Attributes</p>
 </blockquote>
-<p>Basic R-packages are installed from <a href="https://cran.r-project.org/">CRAN</a> (<code>install.packages()</code>) while bioinformatic R-packages are installed from <a href="https://bioconductor.org/">Bioconductor</a> (<code>BiocManager::install()</code>). In order, to install from Bioconductor we need first to install the <a href="https://bioconductor.org/install/">Bioconductor Manager</a>, see code below:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Install Bioconductor manager</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Install from CRAN</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"readr"</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Install from Bioconductor</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"BSgenome.Hsapiens.UCSC.hg38"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-Install packages like this will download the latest version. Exact version numbers are important for reproducibility.
-</details>
-<details>
-<summary>
-Run code with containers
-</summary>
-<p><br></p>
-<p>Use a singularity container with a pre-install environment (OS, R, packages). Run with apptainer / singularity</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Save container as a variable</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="va">METH_SIF</span><span class="op">=</span><span class="st">'library://andreyhgl/singularity-r/methylome'</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Run the container</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">apptainer</span> exec <span class="va">$METH_SIF</span> Rscript bin/cpg_positions.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<p>Will generate <code>data/cpg_positions.txt.gz</code>.</p>
+<blockquote class="blockquote">
+<p>Physical properties include freezing point, boiling point, melting point, infrared spectrum, electronic parameters, viscosity, and density. Some of these physical properties (e.g., electronic parameters, molecular weight, boiling/freezing point) are directly associated with environmental fate and health effects.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Solvation properties14 describe a chemical’s interactions with different phases and its partitioning between phases. Solvation properties of interest in alternatives assessment can be divided into three main types: (a) phase partitioning, (b) solubility, and (c) colligative properties: + A partition-coefficient or distribution-coefficient is defined mathematically as the ratio of concentrations of a given compound across two mixed, immiscible phases at equilibrium. In the context of a chemical alternatives assessment, important partition coefficients are often measured in the liquid phase. Though partitioning can be measured across a range of solvents and phases, the phase partition coefficient most often encountered when assessing physicochemical properties is from a system where one solvent is water or an aqueous phase and the second is organic and hydrophobic, such as 1-octanol (i.e., octanol/water partition coefficient [Kow] represented by P).15 + Solubility. This chemical property refers to the ability of a given substance (the solute) to dissolve in a solvent. The primary measurement of interest in chemical alternatives assessment is solubility in water. + Colligative properties. Colligative properties are properties of solutions that are not dependent on the chemical species but instead on the ratio of the number of solute particles to the number of solvent molecules in a solution. Examples of colligative properties include lowering of vapor pressure, elevation of boiling point, and depression of freezing point. Colligative properties generally do not play a significant role in alternatives assessments and are not discussed further in this report. The term molecular attribute is used to describe properties related to molecular shape and size. For the purposes of this report, the committee considers electronic parameters of molecules (e.g., frontier orbital energies and polarizability) that affect chemical reactivity as a type of molecular attribute.</p>
+</blockquote>
+</div>
+<hr>
 </section>
-<section id="extract-ensembl-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="extract-ensembl-dataset">2. Extract Ensembl dataset</h2>
-<p><a href="https://ensembl.org/">Ensembl</a> is a public project providing access to reference genomes and gene annotations. We will be extracting all the known coding and non-coding genes gene positions.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/ensembl.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Will generate <code>data/ensembl_table.csv.gz</code>.</p>
 </section>
-<section id="differentially-methylated-regions" class="level2">
-<h2 class="anchored" data-anchor-id="differentially-methylated-regions">3. Differentially methylated regions</h2>
-<p>Calulate <strong>D</strong>ifferentially <strong>M</strong>ethylated <strong>R</strong>egions (DMRs) focusing on CpG-sites - but we still call them regions.</p>
-<p>This script is computationally heavy: requires 500Gb ram, 10 cpus and runs for 1,5h. Hence, it’s best ran on a computer cluster, like <a href="https://www.uu.se/centrum/uppmax/resurser/kluster">UPPMAX</a>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/diffmeth.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Will generate <code>data/diffmeth.csv.gz</code>.</p>
-</section>
-<section id="overlap-dmrs-with-genomics-regions" class="level2">
-<h2 class="anchored" data-anchor-id="overlap-dmrs-with-genomics-regions">4. Overlap DMRs with genomics regions</h2>
-<p>Find out which genomic regions (promoter, exon, intron, intergenic, CpG-islands) overlap with the DMRs.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="machine-learning" class="level2" data-auto-animate="true" data-auto-animate-easing="ease-in-out">
+<h2 data-auto-animate="true" data-auto-animate-easing="ease-in-out" class="anchored" data-anchor-id="machine-learning">Machine Learning</h2>
+<div class="fragment" data-fragment-index="1">
+<p><strong>Machine Learning</strong> (ML) is a <em>sub</em>-dicipline of <strong>Artificial Intelligence</strong> (AI) that combines mathematical algorithms and statistical models to perform predictions <strong>without</strong> explicit programming on datasets. The machine “learns” how to analyse a datasets by finding common patterns. There are different learning methods:</p>
 </div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>We’ll need two tables that hold the information for CpG-islands position and genome annotations, both of which can be downloaded from University of <a href="https://genome-euro.ucsc.edu/index.html">California Santa Cruz (UCSC) Genomics Institute</a>. These files are included in the repo, inside <code>data/</code>.</p>
-</div>
-</div>
-<details>
-<summary>
-Download genome annotations
-</summary>
-<p><br></p>
-<p>Annotations can be exported from the <a href="https://genome-euro.ucsc.edu/cgi-bin/hgTables">Table Browser tool</a> at UCSC database. To download the annotations set the parameters as follow:</p>
+<div class="fragment nonincremental" data-fragment-index="3">
 <ul>
-<li><p>CpG-islands annotations, save as <code>cpgislands_GRCh38.bed</code></p>
-<pre><code>clade = "Mammals" 
-genome = "Human"
-assembly = "Dec. 2013 (GRCh38/hg38)"
-group = "Regulation"
-track = "CpG-islands"
-table = "cpgIslandExt"
-output format = "BED"
-output filename = "cpgislands_GRCh38.bed"
-
-&lt;click&gt; "get output" 
-&lt;click&gt; "get BED"</code></pre>
+<li>Supervised Learning: the algorithm learns from labeled dataset, both input and outout is provided (neutral networks)</li>
+<li>Unsupervised Learning: the algorithm learns from unlabeled dataset (clustering, dimensionality reduction)</li>
+</ul>
+</div>
+<div class="fragment" data-fragment-index="4">
+<p><strong>Neural Networks</strong> (NN) is a ML model which “learns” a dataset by adjusting many many parameters to “fit” the outcome of the dataset.</p>
+</div>
+<div class="r-hstack">
+<div class="fragment" data-fragment-index="1" data-id="box1" data-auto-animate-delay="0" style="background: #2780e3; width: 200px; height: 150px; margin: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; border: 2px solid black;">
+<p>AI</p>
+</div>
+<div class="fragment" data-fragment-index="1" data-id="box2" data-auto-animate-delay="0.1" style="background: #3fb618; width: 200px; height: 150px; margin: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; border: 2px solid black;">
+<p>ML</p>
+</div>
+<div class="fragment" data-fragment-index="4" data-id="box3" data-auto-animate-delay="0.2" style="background: #e83e8c; width: 200px; height: 150px; margin: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; border: 2px solid black;">
+<p>NN</p>
+</div>
+</div>
+</section>
+<section id="machine-learning-1" class="level2" data-auto-animate="true" data-auto-animate-easing="ease-in-out">
+<h2 data-auto-animate="true" data-auto-animate-easing="ease-in-out" class="anchored" data-anchor-id="machine-learning-1">Machine Learning</h2>
+<p><strong>Machine Learning</strong> (ML) is a <em>sub</em>-dicipline of <strong>Artificial Intelligence</strong> (AI) that combines mathematical algorithms and statistical models to perform predictions <strong>without</strong> explicit programming on datasets. The machine “learns” how to analyse a datasets by finding common patterns. There are different learning methods:</p>
+<div class="nonincremental">
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/RefSeq">Refseq</a> annotations, save as <code>refseq_UCSC_GRCh38.bed</code></li>
+<li>Supervised Learning: the algorithm learns from labeled dataset, both input and outout is provided (neutral networks)</li>
+<li>Unsupervised Learning: the algorithm learns from unlabeled dataset (clustering, dimensionality reduction)</li>
 </ul>
-<pre><code>clade = "Mammals" 
-genome = "Human"
-assembly = "Dec. 2013 (GRCh38/hg38)"
-group = "Genes and Gene Predictions"
-track = "NCBI RefSeq"
-table = "UCSC RefSeq (refGene)"
-output format = "BED"
-output filename = "refseq_UCSC_GRCh38.bed"
-
-&lt;click&gt; "get output" 
-&lt;click&gt; "get BED"</code></pre></li>
+</div>
+<p><strong>Neural Networks</strong> (NN) is a ML model which “learns” a dataset by adjusting many many parameters to “fit” the outcome of the dataset.</p>
+<div class="r-stack">
+<div data-id="box1" style="background: #2780e3; width: 350px; height: 350px; border-radius: 200px; display: flex; justify-content: center; align-items: flex-start; color: white; font-weight: bold; -webkit-text-stroke: 1.3px black; border: 2px solid black;">
+<p>AI</p>
+</div>
+<div data-id="box2" style="background: #3fb618; width: 250px; height: 250px; border-radius: 200px; display: flex; justify-content: center; align-items: flex-start; color: white; font-weight: bold; -webkit-text-stroke: 1.3px black; border: 2px solid black;">
+<p>ML</p>
+</div>
+<div data-id="box3" style="background: #e83e8c; width: 150px; height: 150px; border-radius: 200px; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold; -webkit-text-stroke: 1.3px black; border: 2px solid black;">
+<p>NN</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="neural-networks" class="level2">
+<h2 class="anchored" data-anchor-id="neural-networks">Neural Networks</h2>
+<p>Lets understand a neural network with an example!</p>
+<p>. . .</p>
+<section id="the-mnist-dataset" class="level4">
+<h4 class="anchored" data-anchor-id="the-mnist-dataset">The MNIST dataset</h4>
+<p>In 1994, the <strong>M</strong>odified <strong>N</strong>ational <strong>I</strong>nstitue of <strong>S</strong>tandards and <strong>T</strong>echnology (MNIST) dataset was created, which contains 70,000 handwritten digits.</p>
+<p><span class="fragment">Why? To train computers to read human digits.</span></p>
+<div class="fragment">
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<p><img src="images/MnistExamplesModified.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<p>MNIST dataset</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+<p>Each handwritten digit is a greyscaled 28 x 28 pixel figure…</p>
+<p><span class="fragment" data-fragment-index="2">which we can translate into a matrix (28 rows, 28 columns), where <code>1</code> = black and <code>0</code> = white</span></p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row quarto-layout-valign-center">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="images/mnist_8_pixel.png" class="img-fluid" width="480"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p><span class="fragment" data-fragment-index="2"><img src="images/mnist_8_matrix.png" class="img-fluid" width="300"></span></p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>[</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>],</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>],</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.3</span>, <span class="fl">0.6</span>, <span class="fl">0.8</span>, <span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">0.6</span>, <span class="fl">0.3</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>],</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>],</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>],</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+<p>Neural networks are inspired by the neurons in the human brain. How we store a memory of a picture (or anything else for that matter) is very abstract and complex. However, when a picture is shown a specific pattern is “activated” in the brain, this pattern is the same every time.</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row quarto-layout-valign-center">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p><span class="fragment" data-fragment-index="1"><img src="images/neuron.gif" height="300"></span></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p><span class="fragment" data-fragment-index="2"><img src="images/neuron_impulse.gif" height="300"></span></p>
+</div>
+</div>
+</div>
+<p><span class="fragment" data-fragment-index="2">Neurons will send an impulse (“fire”) if triggered enough (“action potential”)</span></p>
+<hr>
+<p>Neural networks are build up of layers:</p>
+<div class="nonincremental">
+<ul>
+<li>INPUT</li>
+<li>HIDDEN (intermediate)</li>
+<li>OUTPUT</li>
 </ul>
-</details>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/methtable.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Will generate <code>data/PFOS_MCF-10A_DMR.Rds</code></p>
-<p>Additionally, a table from the gene perspective (each row is a gene), is useful from an explanatory approach.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/genetable.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Will generate <code>data/PFOS_MCF-10A_DMG.Rds</code></p>
+</div>
+<p><img src="images/NN.png" class="absolute img-fluid" data-top="150" data-right="50" width="600"></p>
+<hr>
+<p>The matrix is composed of 784 elements (28 x 28)</p>
+<p><img src="images/mnist_8_NN.png" class="img-fluid"></p>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># activation function</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>activation <span class="ot">&lt;-</span> <span class="cf">function</span>(input){</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    output <span class="ot">&lt;-</span> input <span class="sc">*</span> weight <span class="sc">+</span> random_number</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(output)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+<p>Now we “train” the network. Dataset should be biiig!</p>
+<p><img src="images/NN_3.gif" class="img-fluid"></p>
+<hr>
+<p>Backpropagation</p>
+<p><img src="images/NN_backpropagation.gif" class="img-fluid"></p>
+<hr>
 </section>
-<section id="calculate-pathway-enrichment-scores" class="level2">
-<h2 class="anchored" data-anchor-id="calculate-pathway-enrichment-scores">5. Calculate pathway enrichment scores</h2>
-<p>Use the R-packages <a href="https://bioconductor.org/packages//release/bioc/html/clusterProfiler.html"><code>clusterProfiler</code></a> and <a href="https://www.bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html"><code>org.Hs.eg.db</code></a> to calculate pathway enrichment scores.</p>
-<!-- 
-
-This section needs fixing!
-
-data/PFOS_MCF10A_GO.Rds is copied from the original project. For some reason
-I could not run the script inside the container, perhaps org.Hs.eg.db is the
-problem
-
--->
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/gene_ontology.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Will generate <code>data/PFOS_MCF-10A_GO.Rds</code></p>
 </section>
-<section id="generate-figure-1" class="level2">
-<h2 class="anchored" data-anchor-id="generate-figure-1">6. Generate <code>figure 1</code></h2>
-<p>Generate figure 1 from <a href="https://doi.org/10.1016/j.scitotenv.2024.174864">PFOS MCF10A EMseq</a> paper. The figure is composed of five plots:</p>
-<ol type="1">
-<li>Methylation status of DMRs</li>
-<li>Genomic regions of DMRs</li>
-<li>DM CpG-islands</li>
-<li>Genes overlapping DMRs</li>
-<li>Gene types of DMRs overlapping with promoter, exon and/or CGI</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/figure1.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<details>
-<summary>
-Figure 1
-</summary>
-<p><br></p>
+<section id="unsupervised-learning" class="level2">
+<h2 class="anchored" data-anchor-id="unsupervised-learning">Unsupervised learning</h2>
+<ul>
+<li>Clustering</li>
+<li>Dimensionality reduction</li>
+</ul>
+</section>
+<section id="clustering-k-means" class="level2">
+<h2 class="anchored" data-anchor-id="clustering-k-means">Clustering <em>K-means</em></h2>
+<p>Clustering is a technique used to group similar objects into clusters. It is an unsupervised learning problem, meaning it makes inferences from datasets using only input vectors without referring to known, or labeled, outcomes. The aim of clustering is to partition a set of objects into <strong>K</strong> clusters in such a way that the sum of the squared distances between the objects and their assigned cluster mean is minimized. Clusters are thus internally homogeneous and distinct from each other.</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row quarto-layout-valign-center">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p><span class="fragment"><img src="images/kmeans.gif" class="img-fluid" width="600"></span></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p><span class="fragment"><img src="images/kmeans2.gif" class="img-fluid" width="600"></span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="dimensionality-reduction-pca" class="level2">
+<h2 class="anchored" data-anchor-id="dimensionality-reduction-pca">Dimensionality reduction <em>PCA</em></h2>
+<p>Principal Component Analysis (PCA) is a linear dimensionality reduction technique widely used in exploratory data analysis, visualization, and data preprocessing. The aim is to reduce dimensions based on variation within the varibles, clustering together variables that are similar to eachother.</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row quarto-layout-valign-center">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p><span class="fragment"><img src="images/PCA2.png" class="img-fluid" width="450"></span></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p><span class="fragment"><img src="images/PCA.gif" class="img-fluid" width="450"></span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="real-world-examples" class="level2">
+<h2 class="anchored" data-anchor-id="real-world-examples">Real world examples</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/emseq_pfos_figure1.png" class="img-fluid figure-img"></p>
-<figcaption>Figure 1</figcaption>
+<p><img src="images/QSAR_AI_paper.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="700"></p>
 </figure>
 </div>
-</details>
+<p>. . .</p>
+<blockquote class="blockquote">
+<p>“… a <strong>deep learning model</strong> for <strong>predicting chemical toxicity</strong> based on <strong>molecular structure</strong> (Fig. 1). The model uses a transformer encoder to derive a numerical representation of the chemical structure, which is then used as input to a deep neural network (DNN) that—together with information on the desired effect, end point, and duration of the exposure—predicts an associated effect concentration (EC10 and EC50).”</p>
+</blockquote>
+<p>. . .</p>
+<blockquote class="blockquote">
+<p>“The training data consisted of <strong>147,864 experimentally measured effect concentrations</strong>, covering <strong>2321 to 3741 unique chemical structures</strong> for three organism groups”</p>
+</blockquote>
+<p>. . .</p>
+<p><img src="images/QSAR_AI_paper_figure.png" class="absolute img-fluid" style="opacity: 0.95;" data-top="50" width="1000"></p>
+<hr>
 </section>
-<section id="generate-figure-3" class="level2">
-<h2 class="anchored" data-anchor-id="generate-figure-3">7. Generate <code>figure 3</code></h2>
-<p>Generate figure 3 from <a href="https://doi.org/10.1016/j.scitotenv.2024.174864">PFOS MCF10A EMseq</a> paper. The figure shows pathway enrichment results with GO terms matching the following keywords:</p>
+<section id="links" class="level2">
+<h2 class="anchored" data-anchor-id="links">Links</h2>
+<div class="nonincremental">
 <ul>
-<li>motor</li>
-<li>actin</li>
-<li>adhesion</li>
-<li>growth</li>
-<li>collagen</li>
-<li>myosin</li>
-<li>microtubule</li>
-<li>cytoskeletal</li>
-<li>junction</li>
-<li>extracellular</li>
-<li>locomotion</li>
+<li>https://doi.org/10.1126/sciadv.adk6669</li>
+<li><a href="https://www.ncbi.nlm.nih.gov/books/NBK253956/">QSAR</a></li>
+<li><a href="https://bradleyboehmke.github.io/HOML/">https://bradleyboehmke.github.io/HOML/</a></li>
+<li><a href="https://playground.tensorflow.org/">https://playground.tensorflow.org/</a></li>
+<li><a href="https://tensorflow.rstudio.com/tutorials/keras/classification">https://tensorflow.rstudio.com/tutorials/keras/classification</a></li>
+<li><a href="https://www.statology.org/k-means-clustering-in-r/">https://www.statology.org/k-means-clustering-in-r/</a></li>
 </ul>
-<p>These keywords are matched against the gene description and are relevant genes for PFOS induced phenotypes (previously demonstrated <a href="https://doi.org/10.1007/s00204-017-2077-8">Pierozan and Karlsson, 2018</a>).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/figure3.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<details>
-<summary>
-Figure 3
-</summary>
-<p><br></p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/emseq_pfos_figure3.png" class="img-fluid figure-img"></p>
-<figcaption>Figure 3</figcaption>
-</figure>
 </div>
-</details>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
