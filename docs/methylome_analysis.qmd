@@ -220,9 +220,9 @@ Will generate `data/PFOS_MCF-10A_GO.Rds`
 
 ---
 
-# Generate figures
+# 📊 Generate figures
 
-## Generate `figure 1`
+## `Figure 1`
 
 Generate figure 1 from [PFOS MCF10A EMseq](https://doi.org/10.1016/j.scitotenv.2024.174864) paper. The figure is composed of five plots:
 
@@ -242,7 +242,7 @@ Rscript bin/figure1.R
   ![Figure 1](images/emseq_pfos_figure1.png)
 </details>
 
-## Generate `figure 3`
+## `Figure 3`
 
 Generate figure 3 from [PFOS MCF10A EMseq](https://doi.org/10.1016/j.scitotenv.2024.174864) paper. The figure shows pathway enrichment results with GO terms matching the following keywords:
 
