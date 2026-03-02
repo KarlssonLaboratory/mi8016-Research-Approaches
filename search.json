@@ -42,6 +42,83 @@
     "text": "Put a little flare on it\nR comes with many packages to help customise plots. ggplot2 is the most popular one and builts on “layers” of geometic objects, called geom. The dataset is loaded via the ggplot() function and mapped via aesthetics (aes). Aesthetics contols x, y, outline colors, inside fill colors, sizes, shapes etc.\n\n\n\n\n\n\nTipggplot syntax\n\n\n\n\n\nggplot(&lt;dataframe&gt;, aes(x = &lt;column_x_values&gt;, y = &lt;column_y_values&gt;, colors = &lt;column&gt;)) +\n  geom_&lt;layer&gt; +\n  geom_&lt;layer&gt; +\n  geom_&lt;layer&gt; +\n\n  . . .\n\n\n\nLets style the plot with ggplot2! Run the code below:\n\n# Ones per machine\n#install.packages(\"ggplot2\")\n\n# Every R session\nlibrary(ggplot2)\n\n1ggplot(dat, aes(x = variable, y = value, fill = variable)) +\n2  geom_bar(fun = \"mean\", stat = \"summary\", color = \"black\") +\n3  theme_classic(base_size = 18) +\n4  labs(\n    title = \"Proliferation\",\n    x = \"\",\n    y = \"DAPI Positive cells\")\n\n\n1\n\nBy adding a plus sign + multiple rows are chained fo the plot.\n\n2\n\ngeom_bar() uses the mean to calculate the top part of the bar.\n\n3\n\ntheme_classic() is on of many themes for decorating a plot. base_size sets the overall size.\n\n4\n\nlabs() holds arguments for text inputs for title, x-axis, y-axis, etc.\n\n\n\n\n\n\n\n\n\n\n\nThe legend is not needed, remove it with theme(legend.position = \"none\"):\n\nggplot(dat, aes(x = variable, y = value, fill = variable)) +\n  geom_bar(fun = \"mean\", stat = \"summary\", color = \"black\") +\n  theme_classic(base_size = 18) +\n  \n1  theme(legend.position = \"none\") +\n  \n  labs(\n    title = \"Proliferation\",\n    x = \"\",\n    y = \"DAPI Positive cells\")\n\n\n1\n\nlegend.position is set to “none” and therefor not rendered. Default value is legend.position = \"right\".\n\n\n\n\n\n\n\n\n\n\n\nWe need to add “whiskers” to the plot, which shows mean +/- standard deviation, i.e the variance. Use geom_errorbar:\n\nggplot(dat, aes(x = variable, y = value, fill = variable)) +\n  geom_bar(fun = \"mean\", stat = \"summary\", color = \"black\") +\n  \n  geom_errorbar(\n    stat = \"summary\",\n1    fun.min = function(x) mean(x) - sd(x),\n2    fun.max = function(x) mean(x) + sd(x),\n3    width = 0.4) +\n  \n  theme_classic(base_size = 18) +\n  theme(legend.position = \"none\") +\n  labs(\n    title = \"Proliferation\",\n    x = \"\",\n    y = \"DAPI Positive cells\")\n\n\n1\n\nBottom whisker\n\n2\n\nTop whisker\n\n3\n\nWidth of whiskars\n\n\n\n\n\n\n\n\n\n\n\nTilt the x-axis text 45 degress. theme() holds all arguments for the plots general appearence:\n\n\n\n\n\n\nTipFunction documentations\n\n\n\n\n\nCheck the doumentation: ?theme\nClose with q.\n\n\n\n\nggplot(dat, aes(x = variable, y = value, fill = variable)) +\n  geom_bar(fun = \"mean\", stat = \"summary\", color = \"black\") +\n  geom_errorbar(\n    stat = \"summary\",\n    fun.min = function(x) mean(x) - sd(x),\n    fun.max = function(x) mean(x) + sd(x),\n    width = 0.4) + \n  theme_classic(base_size = 18) +\n  \n  theme(\n    legend.position = \"none\",\n1    axis.text.x = element_text(angle = 45, hjust = 1)) +\n  \n  labs(\n    title = \"Proliferation\",\n    x = \"\",\n    y = \"DAPI Positive cells\")\n\n\n1\n\nhjust = 1 aligns the text to right-justifed.\n\n\n\n\n\n\n\n\n\n\n\nColor the bars according to the original figure. For this we need the package ggpattern and the function scale_pattern_manual().\n\n# Ones per machine\n#install.packages(\"ggpattern\")\n\n# Every R session\nlibrary(ggpattern)\n\nManually set the colors:\n\nbar_colors &lt;- c(\n  \"white\",\n  \"grey85\",\n  \"grey65\",\n  \"grey40\",\n  \"black\",\n  \"white\",\n  \"grey85\",\n  \"grey65\",\n  \"grey40\"\n)\n\n1barplot(rep(1, length(bar_colors)), col = bar_colors)\n\n\n1\n\nInspect the colors with a box-plot\n\n\n\n\n\n\n\n\n\n\n\nManually set the patterns / stripes:\n\nbar_patterns &lt;- c(\n  \"none\",\n  \"none\",\n  \"none\",\n  \"none\",\n  \"none\",\n  \"stripe\",\n  \"stripe\",\n  \"stripe\",\n  \"stripe\"\n)\n\nPut it all together!\n\nggplot(dat, aes(\n    x = variable,\n    y = value,\n    fill = variable,\n\n1    pattern = variable)) +\n  \n  geom_bar(fun = \"mean\", stat = \"summary\", color = \"black\") +\n  \n2  geom_bar_pattern(\n    fun = \"mean\",\n    stat = \"summary\",\n    color = \"black\",\n    pattern_fill = \"black\",\n    pattern_colour = \"black\",\n    pattern_density = 0.4,\n    pattern_spacing = 0.03\n  ) +\n  \n  geom_errorbar(\n    stat = \"summary\",\n    fun.min = function(x) mean(x) - sd(x),\n    fun.max = function(x) mean(x) + sd(x),\n    width = 0.4) +\n  \n3  scale_fill_manual(values = bar_colors) +\n  \n4  scale_pattern_manual(values = bar_patterns) +\n  \n  theme_classic(base_size = 18) +\n  theme(\n    legend.position = \"none\",\n    axis.text.x = element_text(angle = 45, hjust = 1)) +\n  labs(\n    title = \"Proliferation\",\n    x = \"\",\n    y = \"DAPI Positive cells\")\n\n\n1\n\nAdd the pattern aesthetics\n\n2\n\nAdd the pattern layer\n\n3\n\nSet the fill colors manually\n\n4\n\nSet the pattern values manually\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNoteResources\n\n\n\n\n\n\nThe Tukey test\nANOVA and Tukey Kramer posthoc test"
   },
   {
+    "objectID": "docs/methylome_analysis.html",
+    "href": "docs/methylome_analysis.html",
+    "title": "Methylome Analysis",
+    "section": "",
+    "text": "In the paper Perfluorooctanesulfonic acid (PFOS) induced cancer related DNA methylation alterations in human breast cells: A whole genome methylome study, 2024 (PFOS EMseq paper), the adverse effects of PFOS were correlated with the DNA methylation landscape of the human cell line (MCF-10F). The dose used was 1 µM PFOS for 72 h.\nHere, we will reproduce the figure 1 and figure 3, these show the descriptive statistics and gene ontology results, respectively."
+  },
+  {
+    "objectID": "docs/methylome_analysis.html#alignment-coverage",
+    "href": "docs/methylome_analysis.html#alignment-coverage",
+    "title": "Methylome Analysis",
+    "section": "🧬 Alignment & coverage",
+    "text": "🧬 Alignment & coverage\n\n\n\n\n\n\nNote\n\n\n\nThis process is beyond the scope of this lecture. In short, the nfcore/methylseq:1.6.1 was used to align the reads to the reference genome and generate the coverage files (*.cov.gz)."
+  },
+  {
+    "objectID": "docs/methylome_analysis.html#differential-methylation-analysis",
+    "href": "docs/methylome_analysis.html#differential-methylation-analysis",
+    "title": "Methylome Analysis",
+    "section": "Differential methylation analysis",
+    "text": "Differential methylation analysis\nWe want to identify the Differentially Methylated Regions (DMRs) focusing on CpG-sites - but we still call them regions. These DMRs are overlapped with annotated gene positions to identify Differentially Methylated Genes (DMGs), with genes being considored if a DMR is found inside the promoter or the exon, as these genomic regions when influced by DNA methylation affect the transcription machinery. DMR inside introns are not considored. Lastly, the identified DMGs are tested for gene pathway enrichment to understand which gene pathways are affected by PFOS exposure.\nFor this we need to complete the follow steps:\n\nMap CpG-sites\nExtract Ensembl dataset\nDifferentially methylated regions\nOverlap DMRs with genomics regions\nCalculate pathway enrichment scores"
+  },
+  {
+    "objectID": "docs/methylome_analysis.html#map-cpg-sites",
+    "href": "docs/methylome_analysis.html#map-cpg-sites",
+    "title": "Methylome Analysis",
+    "section": "1. Map CpG-sites",
+    "text": "1. Map CpG-sites\nExtract the exact positions of CG-motifs in the human genome, save as text file data/cpg_positions.txt.gz. This table will be used to filter out only the CpG-sites for downstream analysis. To generate the file run this in the terminal (or run the script inside Positron / Rstudio):\nRscript bin/cpg_positions.R\nThe script requires the following R-packages: BSgenome.Hsapiens.UCSC.hg38 and readr.\n\n\nHow to install R-packages\n\n\n\nAssuming you have R already installed\n\nBasic R-packages are installed from CRAN (install.packages()) while bioinformatic R-packages are installed from Bioconductor (BiocManager::install()). In order, to install from Bioconductor we need first to install the Bioconductor Manager, see code below:\n  # Install Bioconductor manager\n  install.packages(\"BiocManager\")\n  \n  # Install from CRAN\n  install.packages(\"readr\")\n  \n  # Install from Bioconductor\n  BiocManager::install(\"BSgenome.Hsapiens.UCSC.hg38\")\nInstall packages like this will download the latest version. Exact version numbers are important for reproducibility.\n\n\n\nRun code with containers\n\n\nUse a singularity container with a pre-install environment (OS, R, packages). Run with apptainer / singularity\n  # Save container as a variable\n  METH_SIF='library://andreyhgl/singularity-r/methylome'\n\n  # Run the container\n  apptainer exec $METH_SIF Rscript bin/cpg_positions.R\n\nWill generate data/cpg_positions.txt.gz."
+  },
+  {
+    "objectID": "docs/methylome_analysis.html#extract-ensembl-dataset",
+    "href": "docs/methylome_analysis.html#extract-ensembl-dataset",
+    "title": "Methylome Analysis",
+    "section": "2. Extract Ensembl dataset",
+    "text": "2. Extract Ensembl dataset\nEnsembl is a public project providing access to reference genomes and gene annotations. We will be extracting all the known coding and non-coding genes gene positions.\nRscript bin/ensembl.R\nWill generate data/ensembl_table.csv.gz."
+  },
+  {
+    "objectID": "docs/methylome_analysis.html#differentially-methylated-regions",
+    "href": "docs/methylome_analysis.html#differentially-methylated-regions",
+    "title": "Methylome Analysis",
+    "section": "3. Differentially methylated regions",
+    "text": "3. Differentially methylated regions\nCalulate Differentially Methylated Regions (DMRs) focusing on CpG-sites - but we still call them regions.\nThis script is computationally heavy: requires 500Gb ram, 10 cpus and runs for 1,5h. Hence, it’s best ran on a computer cluster, like UPPMAX.\nRscript bin/diffmeth.R\nWill generate data/diffmeth.csv.gz."
+  },
+  {
+    "objectID": "docs/methylome_analysis.html#overlap-dmrs-with-genomics-regions",
+    "href": "docs/methylome_analysis.html#overlap-dmrs-with-genomics-regions",
+    "title": "Methylome Analysis",
+    "section": "4. Overlap DMRs with genomics regions",
+    "text": "4. Overlap DMRs with genomics regions\nFind out which genomic regions (promoter, exon, intron, intergenic, CpG-islands) overlap with the DMRs.\n\n\n\n\n\n\nNote\n\n\n\nWe’ll need two tables that hold the information for CpG-islands position and genome annotations, both of which can be downloaded from University of California Santa Cruz (UCSC) Genomics Institute. These files are included in the repo, inside data/.\n\n\n\n\nDownload genome annotations\n\n\nAnnotations can be exported from the Table Browser tool at UCSC database. To download the annotations set the parameters as follow:\n\nCpG-islands annotations, save as cpgislands_GRCh38.bed\nclade = \"Mammals\" \ngenome = \"Human\"\nassembly = \"Dec. 2013 (GRCh38/hg38)\"\ngroup = \"Regulation\"\ntrack = \"CpG-islands\"\ntable = \"cpgIslandExt\"\noutput format = \"BED\"\noutput filename = \"cpgislands_GRCh38.bed\"\n\n&lt;click&gt; \"get output\" \n&lt;click&gt; \"get BED\"\n\nRefseq annotations, save as refseq_UCSC_GRCh38.bed\n\nclade = \"Mammals\" \ngenome = \"Human\"\nassembly = \"Dec. 2013 (GRCh38/hg38)\"\ngroup = \"Genes and Gene Predictions\"\ntrack = \"NCBI RefSeq\"\ntable = \"UCSC RefSeq (refGene)\"\noutput format = \"BED\"\noutput filename = \"refseq_UCSC_GRCh38.bed\"\n\n&lt;click&gt; \"get output\" \n&lt;click&gt; \"get BED\"\n\n\nRscript bin/methtable.R\nWill generate data/PFOS_MCF-10A_DMR.Rds\nAdditionally, a table from the gene perspective (each row is a gene), is useful from an explanatory approach.\nRscript bin/genetable.R\nWill generate data/PFOS_MCF-10A_DMG.Rds"
+  },
+  {
+    "objectID": "docs/methylome_analysis.html#calculate-pathway-enrichment-scores",
+    "href": "docs/methylome_analysis.html#calculate-pathway-enrichment-scores",
+    "title": "Methylome Analysis",
+    "section": "5. Calculate pathway enrichment scores",
+    "text": "5. Calculate pathway enrichment scores\nUse the R-packages clusterProfiler and org.Hs.eg.db to calculate pathway enrichment scores.\n\nRscript bin/gene_ontology.R\nWill generate data/PFOS_MCF-10A_GO.Rds"
+  },
+  {
+    "objectID": "docs/methylome_analysis.html#generate-figure-1",
+    "href": "docs/methylome_analysis.html#generate-figure-1",
+    "title": "Methylome Analysis",
+    "section": "Generate figure 1",
+    "text": "Generate figure 1\nGenerate figure 1 from PFOS MCF10A EMseq paper. The figure is composed of five plots:\n\nMethylation status of DMRs\nGenomic regions of DMRs\nDM CpG-islands\nGenes overlapping DMRs\nGene types of DMRs overlapping with promoter, exon and/or CGI\n\nRscript bin/figure1.R\n\n\nFigure 1\n\n\n\n\n\nFigure 1"
+  },
+  {
+    "objectID": "docs/methylome_analysis.html#generate-figure-3",
+    "href": "docs/methylome_analysis.html#generate-figure-3",
+    "title": "Methylome Analysis",
+    "section": "Generate figure 3",
+    "text": "Generate figure 3\nGenerate figure 3 from PFOS MCF10A EMseq paper. The figure shows pathway enrichment results with GO terms matching the following keywords:\n\nmotor\nactin\nadhesion\ngrowth\ncollagen\nmyosin\nmicrotubule\ncytoskeletal\njunction\nextracellular\nlocomotion\n\nThese keywords are matched against the gene description and are relevant genes for PFOS induced phenotypes (previously demonstrated Pierozan and Karlsson, 2018).\nRscript bin/figure3.R\n\n\nFigure 3\n\n\n\n\n\nFigure 3"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Research Approaches II: Data Analysis",
+    "section": "",
+    "text": "Welcome to the lecture webpage for Research Approaches II: Data Analysis (course: Research Trends in Toxicology (mi8016)). This lecture reproduces the figures from two toxicology papers about PFOS:\n\nFigure 1F and figure 3 from paper PFOS induces proliferation, cell-cycle progression, and malignant phenotype in human breast epithelial cells, 2018 (PFOS phenotype paper).\nFigures 1 and figure 3 from paper Perfluorooctanesulfonic acid (PFOS) induced cancer related DNA methylation alterations in human breast cells: A whole genome methylome study, 2024 (PFOS EM-seq paper).\n\n\n\n\n\n\n\nImportant\n\n\n\nThe whole lecture will be ran in R!\nIf you are new to R, check out this tutorial. Make sure you go through this tutorial before the lecture.\n\n\n\nLectures\n\nT-test\nANOVA\nMethylome analysis"
+  },
+  {
     "objectID": "docs/t_test.html",
     "href": "docs/t_test.html",
     "title": "T-test",
@@ -82,90 +159,6 @@
     "title": "T-test",
     "section": "Put a little flare on it",
     "text": "Put a little flare on it\nR comes with many packages to help customise plots. ggplot2 is the most popular one and builts on “layers” of geometic objects, called geom. The dataset is loaded via the ggplot() function and mapped via aesthetics (aes). Aesthetics contols x, y, outline colors, inside fill colors, sizes, shapes etc.\n\n\n\n\n\n\nTipggplot syntax\n\n\n\n\n\nggplot(&lt;dataframe&gt;, aes(x = &lt;column_x_values&gt;, y = &lt;column_y_values&gt;, colors = &lt;column&gt;)) +\n  geom_&lt;layer&gt; +\n  geom_&lt;layer&gt; +\n  geom_&lt;layer&gt; +\n\n  . . .\n\n\n\nLets style the plot with ggplot2! Run the code below:\n\n# Every R session\nlibrary(ggplot2)\n\n1ggplot(migration, aes(name, value, fill = name)) +\n2    geom_bar(fun = \"mean\", stat = \"summary\", color = \"black\") +\n3    theme_classic(base_size = 18) +\n  labs(\n4    title = \"Migration\",\n    x = \"\",\n    y = \"Number of migrating cells\")\n\n\n1\n\nBy adding a plus sign + multiple rows are chained fo the plot.\n\n2\n\ngeom_bar() uses the mean to calculate the top part of the bar.\n\n3\n\ntheme_classic() is on of many themes for decorating a plot. base_size sets the overall size.\n\n4\n\nlabs() holds arguments for text inputs for title, x-axis, y-axis, etc.\n\n\n\n\n\n\n\n\n\n\n\nThe legend is not needed, remove it with theme(legend.position = \"none\"):\n\nggplot(migration, aes(name, value, fill = name)) + \n  geom_bar(fun = \"mean\", stat = \"summary\", color = \"black\") +\n  theme_classic(base_size = 18) +\n  \n1  theme(legend.position = \"none\") +\n  \n  labs(\n    title = \"Migration\",\n    x = \"\",\n    y = \"Number of migrating cells\")\n\n\n1\n\nlegend.position is set to “none” and therefor not rendered. Default value is legend.position = \"right\".\n\n\n\n\n\n\n\n\n\n\n\nWe need to add “whiskers” to the plot, which shows mean +/- standard deviation, i.e the variance. Use geom_errorbar:\n\nggplot(migration, aes(name, value, fill = name)) + \n  geom_bar(fun = \"mean\", stat = \"summary\", color = \"black\") +\n  \n  geom_errorbar(\n    stat = \"summary\",\n1    fun.min = function(x) mean(x) - sd(x),\n2    fun.max = function(x) mean(x) + sd(x),\n3    width = 0.4) +\n  \n  theme_classic(base_size = 18) +\n  theme(legend.position = \"none\") +\n  labs(\n    title = \"Migration\",\n    x = \"\",\n    y = \"Number of migrating cells\")\n\n\n1\n\nBottom whisker\n\n2\n\nTop whisker\n\n3\n\nWidth of whiskars\n\n\n\n\n\n\n\n\n\n\n\nColor the bars according to the original figure.\nManually set the colors:\n\nbar_colors &lt;- c(\n  \"white\",\n  \"grey40\"\n)\n\n1barplot(rep(1, length(bar_colors)), col = bar_colors)\n\n\n1\n\nInspect the colors with a box-plot\n\n\n\n\n\n\n\n\n\n\n\nPut it all together!\n\nggplot(migration, aes(name, value, fill = name)) + \n  geom_bar(fun = \"mean\", stat = \"summary\", color = \"black\") +\n  geom_errorbar(\n    stat = \"summary\",\n    fun.min = function(x) mean(x) - sd(x),\n    fun.max = function(x) mean(x) + sd(x),\n    width = 0.4) +\n  \n1  scale_fill_manual(values = bar_colors) +\n  \n  theme_classic(base_size = 18) +\n  theme(legend.position = \"none\") +\n  labs(\n    title = \"Migration\",\n    x = \"\",\n    y = \"Number of migrating cells\")\n\n\n1\n\nSet the fill colors manually"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Research Approaches II: Data Analysis",
-    "section": "",
-    "text": "Welcome to the lecture webpage for Research Approaches II: Data Analysis (course: Research Trends in Toxicology (mi8016)). This lecture reproduces the figures from two toxicology papers about PFOS:\n\nFigure 1F and figure 3 from paper PFOS induces proliferation, cell-cycle progression, and malignant phenotype in human breast epithelial cells, 2018 (PFOS phenotype paper).\nFigures 1 and figure 3 from paper Perfluorooctanesulfonic acid (PFOS) induced cancer related DNA methylation alterations in human breast cells: A whole genome methylome study, 2024 (PFOS EM-seq paper).\n\n\n\n\n\n\n\nImportant\n\n\n\nThe whole lecture will be ran in R!\nIf you are new to R, check out this tutorial. Make sure you go through this tutorial before the lecture.\n\n\n\nLectures\n\nT-test\nANOVA\nMethylome analysis"
-  },
-  {
-    "objectID": "docs/methylome_analysis.html",
-    "href": "docs/methylome_analysis.html",
-    "title": "Research Trends in Toxicology",
-    "section": "",
-    "text": "This repo holds the code needed for Methylome Analysis lecture in the Research Trends in Toxicology course. The lecture generates figure 1 and 3 from the PFOS MCF10A EMseq paper.\n\n\nproject/\n├── bin/\n│   ├── cpg_positions.R\n│   ├── diffmeth.R\n│   ├── ensembl.R\n│   ├── figure1.R\n│   ├── figure3.R\n│   ├── gene_ontology.R\n│   ├── genetable.R\n│   └── methtable.R\n└── data/\n    ├── PFOS_MCF-10A_DMG.Rds\n    ├── PFOS_MCF-10A_DMR.Rds\n    ├── PFOS_MCF-10A_GO.Rds\n    ├── cpgislands_GRCh38.bed\n    └── refseq_UCSC_GRCh38.bed"
-  },
-  {
-    "objectID": "docs/methylome_analysis.html#file-structure",
-    "href": "docs/methylome_analysis.html#file-structure",
-    "title": "Research Trends in Toxicology",
-    "section": "",
-    "text": "project/\n├── bin/\n│   ├── cpg_positions.R\n│   ├── diffmeth.R\n│   ├── ensembl.R\n│   ├── figure1.R\n│   ├── figure3.R\n│   ├── gene_ontology.R\n│   ├── genetable.R\n│   └── methtable.R\n└── data/\n    ├── PFOS_MCF-10A_DMG.Rds\n    ├── PFOS_MCF-10A_DMR.Rds\n    ├── PFOS_MCF-10A_GO.Rds\n    ├── cpgislands_GRCh38.bed\n    └── refseq_UCSC_GRCh38.bed"
-  },
-  {
-    "objectID": "docs/methylome_analysis.html#alignment-coverage",
-    "href": "docs/methylome_analysis.html#alignment-coverage",
-    "title": "Research Trends in Toxicology",
-    "section": "🧬 Alignment & coverage",
-    "text": "🧬 Alignment & coverage\n\n\n\n\n\n\nNote\n\n\n\nThis process is beyond the scope of this lecture. In short, the nfcore/methylseq:1.6.1 was used to align the reads to the reference genome and generate the coverage files (*.cov.gz)."
-  },
-  {
-    "objectID": "docs/methylome_analysis.html#differential-methylation-analysis",
-    "href": "docs/methylome_analysis.html#differential-methylation-analysis",
-    "title": "Research Trends in Toxicology",
-    "section": "Differential methylation analysis",
-    "text": "Differential methylation analysis\nWe want to identify the Differentially Methylated Regions (DMRs) focusing on CpG-sites - but we still call them regions. These DMRs are overlapped with annotated gene positions to identify Differentially Methylated Genes (DMGs), with genes being considored if a DMR is found inside the promoter or the exon, as these genomic regions when influced by DNA methylation affect the transcription machinery. DMR inside introns are not considored. Lastly, the identified DMGs are tested for gene pathway enrichment to understand which gene pathways are affected by PFOS exposure.\nFor this we need to complete the follow steps:\n\nMap CpG-sites\nExtract Ensembl dataset\nDifferentially methylated regions\nOverlap DMRs with genomics regions\nCalculate pathway enrichment scores\nGenerate figure 1\nGenerate figure 3"
-  },
-  {
-    "objectID": "docs/methylome_analysis.html#map-cpg-sites",
-    "href": "docs/methylome_analysis.html#map-cpg-sites",
-    "title": "Research Trends in Toxicology",
-    "section": "1. Map CpG-sites",
-    "text": "1. Map CpG-sites\nExtract the exact positions of CG-motifs in the human genome, save as text file data/cpg_positions.txt.gz. This table will be used to filter out only the CpG-sites for downstream analysis. To generate the file run this in the terminal (or run the script inside Positron / Rstudio):\nRscript bin/cpg_positions.R\nThe script requires the following R-packages: BSgenome.Hsapiens.UCSC.hg38 and readr.\n\n\nHow to install R-packages\n\n\n\nAssuming you have R already installed\n\nBasic R-packages are installed from CRAN (install.packages()) while bioinformatic R-packages are installed from Bioconductor (BiocManager::install()). In order, to install from Bioconductor we need first to install the Bioconductor Manager, see code below:\n  # Install Bioconductor manager\n  install.packages(\"BiocManager\")\n  \n  # Install from CRAN\n  install.packages(\"readr\")\n  \n  # Install from Bioconductor\n  BiocManager::install(\"BSgenome.Hsapiens.UCSC.hg38\")\nInstall packages like this will download the latest version. Exact version numbers are important for reproducibility.\n\n\n\nRun code with containers\n\n\nUse a singularity container with a pre-install environment (OS, R, packages). Run with apptainer / singularity\n  # Save container as a variable\n  METH_SIF='library://andreyhgl/singularity-r/methylome'\n\n  # Run the container\n  apptainer exec $METH_SIF Rscript bin/cpg_positions.R\n\nWill generate data/cpg_positions.txt.gz."
-  },
-  {
-    "objectID": "docs/methylome_analysis.html#extract-ensembl-dataset",
-    "href": "docs/methylome_analysis.html#extract-ensembl-dataset",
-    "title": "Research Trends in Toxicology",
-    "section": "2. Extract Ensembl dataset",
-    "text": "2. Extract Ensembl dataset\nEnsembl is a public project providing access to reference genomes and gene annotations. We will be extracting all the known coding and non-coding genes gene positions.\nRscript bin/ensembl.R\nWill generate data/ensembl_table.csv.gz."
-  },
-  {
-    "objectID": "docs/methylome_analysis.html#differentially-methylated-regions",
-    "href": "docs/methylome_analysis.html#differentially-methylated-regions",
-    "title": "Research Trends in Toxicology",
-    "section": "3. Differentially methylated regions",
-    "text": "3. Differentially methylated regions\nCalulate Differentially Methylated Regions (DMRs) focusing on CpG-sites - but we still call them regions.\nThis script is computationally heavy: requires 500Gb ram, 10 cpus and runs for 1,5h. Hence, it’s best ran on a computer cluster, like UPPMAX.\nRscript bin/diffmeth.R\nWill generate data/diffmeth.csv.gz."
-  },
-  {
-    "objectID": "docs/methylome_analysis.html#overlap-dmrs-with-genomics-regions",
-    "href": "docs/methylome_analysis.html#overlap-dmrs-with-genomics-regions",
-    "title": "Research Trends in Toxicology",
-    "section": "4. Overlap DMRs with genomics regions",
-    "text": "4. Overlap DMRs with genomics regions\nFind out which genomic regions (promoter, exon, intron, intergenic, CpG-islands) overlap with the DMRs.\n\n\n\n\n\n\nNote\n\n\n\nWe’ll need two tables that hold the information for CpG-islands position and genome annotations, both of which can be downloaded from University of California Santa Cruz (UCSC) Genomics Institute. These files are included in the repo, inside data/.\n\n\n\n\nDownload genome annotations\n\n\nAnnotations can be exported from the Table Browser tool at UCSC database. To download the annotations set the parameters as follow:\n\nCpG-islands annotations, save as cpgislands_GRCh38.bed\nclade = \"Mammals\" \ngenome = \"Human\"\nassembly = \"Dec. 2013 (GRCh38/hg38)\"\ngroup = \"Regulation\"\ntrack = \"CpG-islands\"\ntable = \"cpgIslandExt\"\noutput format = \"BED\"\noutput filename = \"cpgislands_GRCh38.bed\"\n\n&lt;click&gt; \"get output\" \n&lt;click&gt; \"get BED\"\n\nRefseq annotations, save as refseq_UCSC_GRCh38.bed\n\nclade = \"Mammals\" \ngenome = \"Human\"\nassembly = \"Dec. 2013 (GRCh38/hg38)\"\ngroup = \"Genes and Gene Predictions\"\ntrack = \"NCBI RefSeq\"\ntable = \"UCSC RefSeq (refGene)\"\noutput format = \"BED\"\noutput filename = \"refseq_UCSC_GRCh38.bed\"\n\n&lt;click&gt; \"get output\" \n&lt;click&gt; \"get BED\"\n\n\nRscript bin/methtable.R\nWill generate data/PFOS_MCF-10A_DMR.Rds\nAdditionally, a table from the gene perspective (each row is a gene), is useful from an explanatory approach.\nRscript bin/genetable.R\nWill generate data/PFOS_MCF-10A_DMG.Rds"
-  },
-  {
-    "objectID": "docs/methylome_analysis.html#calculate-pathway-enrichment-scores",
-    "href": "docs/methylome_analysis.html#calculate-pathway-enrichment-scores",
-    "title": "Research Trends in Toxicology",
-    "section": "5. Calculate pathway enrichment scores",
-    "text": "5. Calculate pathway enrichment scores\nUse the R-packages clusterProfiler and org.Hs.eg.db to calculate pathway enrichment scores.\n\nRscript bin/gene_ontology.R\nWill generate data/PFOS_MCF-10A_GO.Rds"
-  },
-  {
-    "objectID": "docs/methylome_analysis.html#generate-figure-1",
-    "href": "docs/methylome_analysis.html#generate-figure-1",
-    "title": "Research Trends in Toxicology",
-    "section": "6. Generate figure 1",
-    "text": "6. Generate figure 1\nGenerate figure 1 from PFOS MCF10A EMseq paper. The figure is composed of five plots:\n\nMethylation status of DMRs\nGenomic regions of DMRs\nDM CpG-islands\nGenes overlapping DMRs\nGene types of DMRs overlapping with promoter, exon and/or CGI\n\nRscript bin/figure1.R\n\n\nFigure 1\n\n\n\n\n\nFigure 1"
-  },
-  {
-    "objectID": "docs/methylome_analysis.html#generate-figure-3",
-    "href": "docs/methylome_analysis.html#generate-figure-3",
-    "title": "Research Trends in Toxicology",
-    "section": "7. Generate figure 3",
-    "text": "7. Generate figure 3\nGenerate figure 3 from PFOS MCF10A EMseq paper. The figure shows pathway enrichment results with GO terms matching the following keywords:\n\nmotor\nactin\nadhesion\ngrowth\ncollagen\nmyosin\nmicrotubule\ncytoskeletal\njunction\nextracellular\nlocomotion\n\nThese keywords are matched against the gene description and are relevant genes for PFOS induced phenotypes (previously demonstrated Pierozan and Karlsson, 2018).\nRscript bin/figure3.R\n\n\nFigure 3\n\n\n\n\n\nFigure 3"
   },
   {
     "objectID": "docs/r_tutorial.html",

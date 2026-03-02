@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>methylome_analysis – Research Approaches II: Data Analysis</title>
+<title>Methylome Analysis – Research Approaches II: Data Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -111,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-fixed fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="floating nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -333,20 +333,88 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#computational-analysis" id="toc-computational-analysis" class="nav-link active" data-scroll-target="#computational-analysis">🖥️ Computational analysis</a>
+  <ul class="collapse">
+  <li><a href="#alignment-coverage" id="toc-alignment-coverage" class="nav-link" data-scroll-target="#alignment-coverage">🧬 Alignment &amp; coverage</a></li>
+  <li><a href="#differential-methylation-analysis" id="toc-differential-methylation-analysis" class="nav-link" data-scroll-target="#differential-methylation-analysis">Differential methylation analysis</a></li>
+  <li><a href="#map-cpg-sites" id="toc-map-cpg-sites" class="nav-link" data-scroll-target="#map-cpg-sites">1. Map CpG-sites</a></li>
+  <li><a href="#extract-ensembl-dataset" id="toc-extract-ensembl-dataset" class="nav-link" data-scroll-target="#extract-ensembl-dataset">2. Extract Ensembl dataset</a></li>
+  <li><a href="#differentially-methylated-regions" id="toc-differentially-methylated-regions" class="nav-link" data-scroll-target="#differentially-methylated-regions">3. Differentially methylated regions</a></li>
+  <li><a href="#overlap-dmrs-with-genomics-regions" id="toc-overlap-dmrs-with-genomics-regions" class="nav-link" data-scroll-target="#overlap-dmrs-with-genomics-regions">4. Overlap DMRs with genomics regions</a></li>
+  <li><a href="#calculate-pathway-enrichment-scores" id="toc-calculate-pathway-enrichment-scores" class="nav-link" data-scroll-target="#calculate-pathway-enrichment-scores">5. Calculate pathway enrichment scores</a></li>
+  </ul></li>
+  <li><a href="#generate-figures" id="toc-generate-figures" class="nav-link" data-scroll-target="#generate-figures">Generate figures</a>
+  <ul class="collapse">
+  <li><a href="#generate-figure-1" id="toc-generate-figure-1" class="nav-link" data-scroll-target="#generate-figure-1">Generate <code>figure 1</code></a></li>
+  <li><a href="#generate-figure-3" id="toc-generate-figure-3" class="nav-link" data-scroll-target="#generate-figure-3">Generate <code>figure 3</code></a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Methylome Analysis</h1>
+<p class="subtitle lead">Identifying differentially methylated regions</p>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
-<section id="research-trends-in-toxicology" class="level1">
-<h1>Research Trends in Toxicology</h1>
-<p>This repo holds the code needed for <strong>Methylome Analysis</strong> lecture in the <a href="https://www.su.se/english/education/course-catalogue/mi/mi8016"><em>Research Trends in Toxicology course</em></a>. The lecture generates figure 1 and 3 from the <a href="https://doi.org/10.1016/j.scitotenv.2024.174864">PFOS MCF10A EMseq</a> paper.</p>
-<section id="file-structure" class="level2">
-<h2 class="anchored" data-anchor-id="file-structure">File structure</h2>
+</header>
+
+
+<p>In the paper <a href="https://doi.org/10.1016/j.scitotenv.2024.174864">Perfluorooctanesulfonic acid (PFOS) induced cancer related DNA methylation alterations in human breast cells: A whole genome methylome study, 2024</a> (<em>PFOS EMseq paper</em>), the adverse effects of PFOS were correlated with the DNA methylation landscape of the human cell line (MCF-10F). The dose used was 1 µM PFOS for 72 h.</p>
+<p>Here, we will reproduce the <a href="https://ars.els-cdn.com/content/image/1-s2.0-S0048969724050137-gr1_lrg.jpg">figure 1</a> and <a href="https://ars.els-cdn.com/content/image/1-s2.0-S0048969724050137-gr3_lrg.jpg">figure 3</a>, these show the descriptive statistics and gene ontology results, respectively.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The computational analysis is divided into two sections; (1) computational analysis and (2) figure generation. Computational analysis section is not executed, but all data for figure generation is supplied.</p>
+</div>
+</div>
+<hr>
+<section id="computational-analysis" class="level1">
+<h1>🖥️ Computational analysis</h1>
+<div class="callout callout-style-default callout-tip callout-titled" title="File structure">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>File structure
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Github file structure</p>
 <pre><code>project/
 ├── bin/
 │   ├── cpg_positions.R
@@ -363,11 +431,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     ├── PFOS_MCF-10A_GO.Rds
     ├── cpgislands_GRCh38.bed
     └── refseq_UCSC_GRCh38.bed</code></pre>
-<hr>
-</section>
-</section>
-<section id="computational-analysis" class="level1">
-<h1>🖥️ Computational analysis</h1>
+</div>
+</div>
+</div>
 <section id="alignment-coverage" class="level2">
 <h2 class="anchored" data-anchor-id="alignment-coverage">🧬 Alignment &amp; coverage</h2>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -394,8 +460,6 @@ Note
 <li><a href="#3-differentially-methylated-regions">Differentially methylated regions</a></li>
 <li><a href="#4-overlap-dmrs-with-genomics-regions">Overlap DMRs with genomics regions</a></li>
 <li><a href="#5-calculate-pathway-enrichment-score">Calculate pathway enrichment scores</a></li>
-<li><a href="#6-generate-figure-1">Generate figure 1</a></li>
-<li><a href="#7-generate-figure-3">Generate figure 3</a></li>
 </ol>
 </section>
 <section id="map-cpg-sites" class="level2">
@@ -520,9 +584,13 @@ problem
 -->
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> bin/gene_ontology.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Will generate <code>data/PFOS_MCF-10A_GO.Rds</code></p>
+<hr>
 </section>
+</section>
+<section id="generate-figures" class="level1">
+<h1>Generate figures</h1>
 <section id="generate-figure-1" class="level2">
-<h2 class="anchored" data-anchor-id="generate-figure-1">6. Generate <code>figure 1</code></h2>
+<h2 class="anchored" data-anchor-id="generate-figure-1">Generate <code>figure 1</code></h2>
 <p>Generate figure 1 from <a href="https://doi.org/10.1016/j.scitotenv.2024.174864">PFOS MCF10A EMseq</a> paper. The figure is composed of five plots:</p>
 <ol type="1">
 <li>Methylation status of DMRs</li>
@@ -546,7 +614,7 @@ Figure 1
 </details>
 </section>
 <section id="generate-figure-3" class="level2">
-<h2 class="anchored" data-anchor-id="generate-figure-3">7. Generate <code>figure 3</code></h2>
+<h2 class="anchored" data-anchor-id="generate-figure-3">Generate <code>figure 3</code></h2>
 <p>Generate figure 3 from <a href="https://doi.org/10.1016/j.scitotenv.2024.174864">PFOS MCF10A EMseq</a> paper. The figure shows pathway enrichment results with GO terms matching the following keywords:</p>
 <ul>
 <li>motor</li>
