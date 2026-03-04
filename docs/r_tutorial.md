@@ -3,16 +3,17 @@
 ## Table of Contents
 
 1. [Who This Guide Is For](#who-this-guide-is-for)
-2. [Installing R](#installing-r)
-3. [Your First R Commands](#your-first-r-commands)
-4. [Choosing an IDE](#choosing-an-ide)
+2. [Why R?](#why-r)
+3. [Installing R](#installing-r)
+4. [Your First R Commands](#your-first-r-commands)
+5. [Choosing an IDE](#choosing-an-ide)
    - [RStudio](#rstudio)
    - [Positron](#positron)
-5. [R Packages](#r-packages)
-6. [Working Directories](#working-directories)
-7. [Mini Project: Your First Data Analysis](#mini-project-your-first-data-analysis)
-8. [Troubleshooting](#troubleshooting)
-9. [Getting Help](#getting-help)
+6. [R Packages](#r-packages)
+7. [Working Directories](#working-directories)
+8. [Mini Project: Your First Data Analysis](#mini-project-your-first-data-analysis)
+9. [Troubleshooting](#troubleshooting)
+10. [Getting Help](#getting-help)
 
 
 ---
@@ -20,6 +21,12 @@
 ## Who This Guide Is For
 
 This tutorial is for anyone who is new to R and wants to get up and running quickly — no prior programming experience required. By the end, you will have R installed, know how to run basic commands, and have completed a simple data analysis project using real data.
+
+---
+
+## Why R?
+
+R has become the dominant language in bioinformatics for a number of reasons. It was designed from the ground up for statistical computing, which means many of the operations central to biological data analysis are either built in or available through mature, well-tested packages. The Bioconductor ecosystem alone offers over 2,000 packages specifically for genomic and high-throughput data, including tools like DESeq2, edgeR, and Seurat that have no direct equivalents elsewhere. While Python is a capable general-purpose language and has strong libraries for machine learning and data manipulation, it was not built with statistics or biology in mind — so tasks that take a single line in R can require importing multiple libraries and writing considerably more code to achieve the same result. R also handles the kinds of data structures common in biology (data frames with mixed types, factor variables, formula notation for statistical models) more naturally than Python does out of the box. For researchers whose primary goal is analysis rather than software development, R's conciseness and its deep integration with statistical methodology make it the more practical choice.
 
 ---
 
