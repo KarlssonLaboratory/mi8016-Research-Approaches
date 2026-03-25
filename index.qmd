@@ -12,6 +12,6 @@ If you are new to R, follow this tutorial [Introduction to R](docs/r_tutorial.md
 ### Workshop parts
 
 1. [Introduction to R](docs/r_tutorial.md): How to install R and some basic commands to get you started 
-2. [T-test](docs/t_test.md): Here we reproduce the statistics and make a figure which shows the cell migration and cell invasion after 10µM PFOS exposure.
+2. [T-test](docs/t_test.qmd): Here we reproduce the statistics and make a figure which shows the cell migration and cell invasion after 10µM PFOS exposure.
 3. [ANOVA](docs/anova.qmd): Here we reproduce the statistics and make a figure which shows the proliferation over mulitple doses of PFOS.
 4. [Methylome Analysis](docs/methylome_analysis.qmd): Here we reproduce figures showing descriptive statistics and gene ontology results after 1µM PFOS exposure.
