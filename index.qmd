@@ -1,16 +1,17 @@
-Welcome to the lecture webpage for **Research Approaches II: Data Analysis**  (course: [Research Trends in Toxicology (mi8016)](https://www.su.se/english/education/course-catalogue/mi/mi8016)). This lecture reproduces the figures from two toxicology papers about [PFOS](https://en.wikipedia.org/wiki/Perfluorooctanesulfonic_acid):
+Welcome to the workshop webpage for **Research Approaches II: Data Analysis**  (course: [Research Trends in Toxicology (mi8016)](https://www.su.se/english/education/course-catalogue/mi/mi8016)). This _hands-on_ workshop reproduces the statistics and figures from two toxicology papers investigating [PFOS](https://en.wikipedia.org/wiki/Perfluorooctanesulfonic_acid):
 
 1. [Figure 1F](https://link.springer.com/article/10.1007/s00204-017-2077-8/figures/1) and [figure 3](https://link.springer.com/article/10.1007/s00204-017-2077-8/figures/3) from paper [PFOS induces proliferation, cell-cycle progression, and malignant phenotype in human breast epithelial cells, 2018](https://doi.org/10.1007/s00204-017-2077-8) (_PFOS phenotype paper_).
 2. [Figures 1](https://ars.els-cdn.com/content/image/1-s2.0-S0048969724050137-gr1_lrg.jpg) and [figure 3](https://ars.els-cdn.com/content/image/1-s2.0-S0048969724050137-gr3_lrg.jpg) from paper [Perfluorooctanesulfonic acid (PFOS) induced cancer related DNA methylation alterations in human breast cells: A whole genome methylome study, 2024](https://doi.org/10.1016/j.scitotenv.2024.174864) (_PFOS EM-seq paper_).
 
 ::: {.callout-important}
-The whole lecture will be ran in R!
+This workshop is ran in R! No previous experience with R or bioinformatic data analysis is required.
 
-If you are new to R, check out this [tutorial](docs/r_tutorial.md). Make sure you go through this tutorial before the lecture.
+If you are new to R, follow this tutorial [Introduction to R](docs/r_tutorial.md). Make sure you go through this tutorial before the workshop.
 :::
 
-### Lectures
+### Workshop parts
 
-+ [T-test](docs/t_test.md)
-+ [ANOVA](docs/anova.qmd)
-+ [Methylome analysis](docs/methylome_analysis.qmd)
+A. [Introduction to R](docs/r_tutorial.md): How to install R and some basic commands to get you started 
+B. [T-test](docs/t_test.md): Here we reproduce the statistics and make a figure which shows the cell migration and cell invasion after 10µM PFOS exposure.
+C. [ANOVA](docs/anova.qmd): Here we reproduce the statistics and make a figure which shows the proliferation over mulitple doses of PFOS.
+D. [Methylome Analysis](docs/methylome_analysis.qmd): Here we reproduce figures showing descriptive statistics and gene ontology results after 1µM PFOS exposure.

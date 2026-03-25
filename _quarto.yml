@@ -9,7 +9,7 @@ website:
       - href: index.qmd
         text: Home
       - href: docs/r_tutorial.md
-        text: R Introduction
+        text: Introduction to R
       - href: docs/t_test.qmd
         text: T-test
       - href: docs/anova.qmd
