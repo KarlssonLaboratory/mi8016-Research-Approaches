@@ -184,7 +184,7 @@ The `::` notation specifies which package a function comes from — useful when 
 
 ::: {.callout-important}
 
-For this lecture install the following packages:
+For this workshop, install the following packages:
 
 ```r
 install.packages(c(
